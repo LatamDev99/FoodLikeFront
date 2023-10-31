@@ -1,17 +1,18 @@
 
-import { useSelector } from "react-redux";
 
-const RegistroRestaurante = () => {
+const RegistroRestaurante = (props) => {
 
-  
-  const categoriasGuardadas = useSelector((state) => state.categoriasGuardadas);
+//armar un objeto, poner el nombre de las variables e igualarlas a props.categorias guardadas 
 
-  
-
-
-    return (
+  return (
       <div >
-        'hola'
+        {props.categoriasGuardadas.map((game) => {
+            return (
+              <div>
+                <p>{game.nombre}</p>
+              </div>
+            );
+        })}
       </div>
     )
 }   
