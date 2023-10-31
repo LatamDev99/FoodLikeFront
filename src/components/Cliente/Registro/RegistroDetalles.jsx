@@ -9,13 +9,12 @@ import { Link } from 'react-router-dom'
 
 const RegistroDetalles = () => {
   let nuevoUsuario = useSelector(state => state.nuevoUsuario)
-  console.log(nuevoUsuario);
     const [loading, setLoading] = useState(true)
     const [nombre, setNombre] = useState("")
     const [apellido, setApellido] = useState("")
     const [lada, setLada] = useState("")
     const [telefono, setTelefono] = useState(0)
-    const [codigo, setCodigo] = useState("")
+    // const [codigo, setCodigo] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
         setTimeout(() => {
@@ -35,9 +34,9 @@ const RegistroDetalles = () => {
     const onChangeTelefono = (e) => {
         setTelefono(e.target.value)
     }
-    const onChangeCodigo = (e) => {
-        setCodigo(e.target.value)
-    }
+    // const onChangeCodigo = (e) => {
+    //     setCodigo(e.target.value)
+    // }
     const onClickContinuar = () => {
         let crearUsuario = {
             correo: nuevoUsuario.correo,

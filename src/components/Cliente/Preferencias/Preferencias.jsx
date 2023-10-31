@@ -12,7 +12,6 @@ const Preferencias = () => {
   const [categorias, setCategorias] = useState([]);
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]); // Nuevo estado para rastrear categorías seleccionadas
   let nuevoUsuario = useSelector(state => state.nuevoUsuario)
-  console.log(nuevoUsuario);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +34,6 @@ const Preferencias = () => {
     const updatedCategorias = [...categorias];
     updatedCategorias[index].seleccionada = !updatedCategorias[index].seleccionada;
     setCategorias(updatedCategorias);
-
-    // Agregar o eliminar el ID de la categoría seleccionada en el estado
     const categoriaId = updatedCategorias[index].id;
     if (updatedCategorias[index].seleccionada) {
       setCategoriasSeleccionadas([...categoriasSeleccionadas, categoriaId]);

@@ -6,14 +6,13 @@ import Loading from '../Loading/Loading'
 import facebook from "../../../img/facebook-1-svgrepo-com.svg"
 import google from "../../../img/google-color-svgrepo-com.svg"
 import twitter from "../../../img/twitter-svgrepo-com.svg"
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { datosUsuario } from '../../../actions'
 import axios from 'axios'
 
 
 const Sesion = () => {
     const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState({})
     const [correo, setCorreo] = useState("")
     const [contrasena, setContrasena] = useState("")
     const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const Sesion = () => {
       }
       try {
         let response = await axios.post("http://localhost:3001/cliente/sesion", credenciales)
-        setUser(response.data)
         if (response.data.nombre && response.data.nombre.length > 0) {
           dispatch(datosUsuario(response.data))
           alert(`¡Hola, ${response.data.nombre}! Has iniciado sesión.`);

@@ -8,11 +8,8 @@ import google from "../../../img/google-color-svgrepo-com.svg"
 import twitter from "../../../img/twitter-svgrepo-com.svg"
 import { useDispatch } from 'react-redux'
 import { guardarNuevoUsuario } from '../../../actions'
-import { useSelector } from "react-redux";
 
 const Registro = () => {
-    let nuevoUsuario = useSelector(state => state.nuevoUsuario)
-    console.log(nuevoUsuario);
     const [loading, setLoading] = useState(true)
     const [correo, setCorreo] = useState("")
     const [contrasena, setContrasena] = useState("")
