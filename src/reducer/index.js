@@ -1,7 +1,9 @@
 
 const initialState = {
     categoria: [],
-    categoriasGuardadas: []
+    categoriasGuardadas: [],
+    nuevoUsuario: {},
+    usuario: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +22,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         categoriasGuardadas: action.payload,
       }  
+
+      case "GUARDAR_NUEVO_USUARIO":
+      return {
+        ...state,
+        nuevoUsuario: action.payload
+      }
+
+      case "DATOS_USUARIO":
+      return {
+        ...state,
+        usuario: action.payload
+      }
       
       default:
       return state;
