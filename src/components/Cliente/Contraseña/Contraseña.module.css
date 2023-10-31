@@ -1,0 +1,24 @@
+.conteiner{
+    background: linear-gradient(to bottom, #ffffff, #FF6B00);
+    width: 100%;
+    height: 100%;
+    min-height: 580px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
+.codigo{
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+}
+.code{
+    width: 10%;
+    height: 10%;
+}
+.perfil{
+    width: 20%;
+    height: 20%;  
+}

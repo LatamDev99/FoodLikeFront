@@ -1,5 +1,5 @@
 export const onClickCliente = () => {
-    window.location.href = "/cliente";
+    window.location.href = "/cliente/sesion";
   }
  export const onClickRestaurante = () => {
     window.location.href = "/restaurante";
