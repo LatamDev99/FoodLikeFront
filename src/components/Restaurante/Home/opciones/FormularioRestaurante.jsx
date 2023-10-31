@@ -183,10 +183,7 @@ return (
               <div>
                 <button onClick={handleSubmit}>Crear Restaurante</button>
               </div>         
-            
-
-
-    </div>
+     </div>
 )
 }
 

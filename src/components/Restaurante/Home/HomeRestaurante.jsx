@@ -1,6 +1,6 @@
 import styles from "./HomeRestaurante.module.css";
 import React from "react";
-import { FormularioRestaurante } from "./opciones/OpcionesCategoria.jsx";
+import { FormularioRestaurante } from "./opciones/FormularioRestaurante.jsx";
 import { useSelector } from "react-redux";
 import RegistroRestaurante from "../Registro/RegistroRestaurante";
 
