@@ -16,8 +16,7 @@ function App() {
     <Route exact path="/" component={Branch} />
     <Route path="/cliente" component={HomeCliente}/>
     <Route path="/restaurante" component={HomeRestaurante}/>
-    <Route path="/registrorestaurante" component={RegistroRestaurante}/>
-    </Switch>
+    </Switch>  
    </BrowserRouter>
   );
 }

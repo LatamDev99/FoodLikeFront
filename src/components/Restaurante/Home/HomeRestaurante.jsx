@@ -1,14 +1,26 @@
 import styles from "./HomeRestaurante.module.css";
 import React from "react";
-import { OpcionesCategoria } from "./opciones/opcionesCategoria.jsx";
+import { FormularioRestaurante } from "./opciones/OpcionesCategoria.jsx";
+import { useSelector } from "react-redux";
+import RegistroRestaurante from "../Registro/RegistroRestaurante";
+
+
+
 
 const HomeRestaurante = () => {
 
+  const categoriasGuardadas = useSelector((state) => state.categoriasGuardadas);
 
 return (
   <div className={styles.container}>
     <div className={styles.centeredObject}>
-    <OpcionesCategoria/>    
+
+    <FormularioRestaurante/>
+    {/* {categoriasGuardadas?.length===0 &&
+               ||
+              <RegistroRestaurante categoriasGuardadas={categoriasGuardadas}/>
+    }     */}
+    
     </div>
   </div>
 )
