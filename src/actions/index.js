@@ -11,9 +11,7 @@ export function traerCategorias() {
   };
 }
 
-
 export function guardarCategoria(categoria) {
-
   return async function (dispatch) {
       return dispatch({
       type: "GUARDAR_CATEGORIAS",

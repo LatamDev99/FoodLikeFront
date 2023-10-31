@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Select from 'react-select'
+
 import { useDispatch, useSelector } from "react-redux";
 import { guardarCategoria, traerCategorias } from "../../../../actions";
 
@@ -9,30 +11,26 @@ export const OpcionesCategoria = () => {
 
   const dispatch = useDispatch()
   const categoria = useSelector((state) => state.categoria);
-  const [a , setA] = useState()
+  const [categoriaSeleccionada , setCategoriaSeleccionada] = useState([])
 
-  const handleSubmit = async (event) =>{
-    setA(event.target.value)
-    dispatch(guardarCategoria(a))
+  const handleSelect = () =>{
+   
+    dispatch(guardarCategoria(categoriaSeleccionada))
+    onClickCaTegoria()
   }
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(traerCategorias());    
   }, [dispatch]);
 
 return (
     <div>
-    <select onChange={handleSubmit}>
-      <option value="">Selecciona una opción</option>
-      {categoria?.map((cat, index) => (
-        <option key={index} value={cat.id}>
-          {cat.nombre}
-        </option>
-      ))}
-    </select> 
 
+    <Select isMulti  options={categoria}
+    onChange={(item)=> setCategoriaSeleccionada(item)}
+    />
 
-    <button  onClick={onClickCaTegoria}>Aceptar</button>  
+    <button  onClick={handleSelect}>Aceptar</button>  
     </div>
 )
 }

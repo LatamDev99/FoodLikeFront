@@ -1,4 +1,3 @@
-import axios from "axios";
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Branch from "./components/Branch/branch";

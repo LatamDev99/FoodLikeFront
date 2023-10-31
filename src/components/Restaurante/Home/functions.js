@@ -1,3 +1,3 @@
 export const onClickCaTegoria = () => {
-    window.location.href = "/registroRestaurante";
-  }
+    // window.location.href = "/registroRestaurante";
+}
