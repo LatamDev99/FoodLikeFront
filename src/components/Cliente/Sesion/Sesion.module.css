@@ -18,3 +18,7 @@
     width: 10%;
     height: 10%;
 }
+.error{
+    color: red;
+    font-size: 10px;
+}
