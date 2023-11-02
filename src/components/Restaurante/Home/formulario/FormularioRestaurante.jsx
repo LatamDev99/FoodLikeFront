@@ -3,8 +3,7 @@ import Select from 'react-select'
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-import { guardarCategoria, traerCategorias } from "../../../../actions";
-import { onClickCaTegoria } from "../functions";
+import {  traerCategorias } from "../../../../actions";
 
 
 
@@ -12,75 +11,31 @@ export const FormularioRestaurante = () => {
 
   const dispatch = useDispatch()
   const categoria = useSelector((state) => state.categoria);
-  const [categoriaSeleccionada , setCategoriaSeleccionada] = useState([])
-  const idsObjeto = []
-
-  const [input, setInput] = useState({
+  const [restaurante, setRestaurante] = useState({
     correo: "",
     contrasena: "",
     nombre: "",
     representante: "",
     telefono: "",
     direccion: "",
-    horario: "",
-    logo:"",
-    fachada:"",
-    cuentaBancaria:"",
-    alcance:""
+    categorias:[]
   });
 
-  const [input2, setInput2] = useState({
-      correo: "",
-      contrasena: "",
-      nombre: "",
-      representante: "",
-      telefono: "",
-      direccion: "",
-      horario:"",
-      logo:"",
-      fachada:"",
-      cuentaBancaria:"",
-      alcance:"",
-      categorias: [],
-  });
+  const handleSubmit = async() => {
 
-  const handleSubmit = () => {
-
-    for (let i = 0; i < categoriaSeleccionada.length; i++) {
-      const id = categoriaSeleccionada[i].id;
-      idsObjeto.push(id)
-  }
-
-    setInput2({
-      correo: input.correo,
-      contrasena: input.contrasena,
-      nombre: input.nombre,
-      representante: input.representante,
-      telefono: input.telefono,
-      direccion: input.direccion,
-      horario: input.horario,
-      logo: input.logo,
-      fachada: input.fachada,
-      cuentaBancaria: input.cuentaBancaria,
-      alcance: input.alcance,
-      categorias: idsObjeto
-    })
-
-    let json =  axios.post(
+    let json = await axios.post(
       `http://localhost:3001/restaurante/registro`,
-      input2
+      restaurante
     )
-    console.log(json)
+    
   }
 
 
   const handleChange = (e) => {
-    setInput({
-      ...input,
+    setRestaurante({
+      ...restaurante,
       [e.target.name]: e.target.value,
     });
-
-
   }
 
   useEffect(() => {
@@ -111,6 +66,7 @@ return (
                 <label>Nombre:</label>
                 <input
                   type="text"
+                  name="nombre"
                   onChange={handleChange}
                 />
               </div>
@@ -138,7 +94,7 @@ return (
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              {/* <div>
                 <label>Horario: </label>
                 <input
                   type="text"
@@ -177,9 +133,13 @@ return (
                   name="alcance"
                   onChange={handleChange}
                 />
-            </div>
+            </div> */}
+            <label>Categorías: </label>
             <Select isMulti  options={categoria}
-        onChange={(item)=> setCategoriaSeleccionada(item)} />
+        onChange={(item)=> setRestaurante({
+          ...restaurante,
+            categorias: item.map(cat => cat.id)
+          }) } />
               <div>
                 <button onClick={handleSubmit}>Crear Restaurante</button>
               </div>         
