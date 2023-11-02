@@ -9,15 +9,6 @@
     align-items: center;
 }
 
-.containerCentrado{
-    width: auto;
-    height: auto;
-    background-color: #ccc;
-    text-align: center;
-    line-height: 200px;
-}
-
 button{
-    margin-right: 5px;
-    width: 100%;
+    width: 150px;
 }
