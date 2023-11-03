@@ -8,7 +8,7 @@ import styles from "./Registro.module.css"
 import {  traerCategorias } from "../../../actions";
 import Loading from "../Loading/Loading";
 
-export const Registro = () => {
+const Registro = () => {
 
   const dispatch = useDispatch()
   const categoria = useSelector((state) => state.categoria);
@@ -32,14 +32,12 @@ export const Registro = () => {
       restaurante
     )
 
-
-      if(json.data===true)
-      {
-      setLoading(true)
-      setTimeout(() => {
-        history.push("/restaurante/registroinfo")
-    }, 1500);
-  }
+    if(json.data===true){
+        setLoading(true)
+        setTimeout(() => {
+          history.push("/restaurante/sesion")
+        }, 1500);
+    }
   }
 
   const handleChange = (e) => {
@@ -47,6 +45,10 @@ export const Registro = () => {
       ...restaurante,
       [e.target.name]: e.target.value,
     });
+  }
+
+  const InicioSeSion = () =>{
+      history.push("/restaurante/sesion")
   }
 
   useEffect(() => {
@@ -59,8 +61,10 @@ export const Registro = () => {
 return (
   loading ? <Loading/>:
     <div className={styles.container}>  
+              
+
               <div>
-                <label>Correoooooooo: </label>
+                <label>Correo:</label>
                 <input
                   type="text"
                   name="correo"
@@ -115,8 +119,14 @@ return (
           }) } />
               <div>
                 <button onClick={handleSubmit}>Crear Restaurante</button>
-              </div>         
+              </div> 
+
+              <div>
+                <button onClick={InicioSeSion}>Atrás</button>
+              </div>  
+                     
      </div>
 )
 }
 
+export default Registro;

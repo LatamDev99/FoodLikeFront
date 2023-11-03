@@ -26,6 +26,7 @@ const Registro = () => {
             setLoading(false)
         }, 1000);
     })
+    
     const onClickContinuar = async() => {
         let crearUsuario = {
             correo: correo, 
