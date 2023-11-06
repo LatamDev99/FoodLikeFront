@@ -21,7 +21,6 @@ export function guardarCategoria(categoria) {
 }
 
 export function guardarNuevoUsuario(usuario){
-  console.log(usuario);
   return async function (dispatch) {
     return await dispatch({
       type: "GUARDAR_NUEVO_USUARIO",
