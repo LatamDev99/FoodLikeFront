@@ -2,11 +2,7 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Branch from "./components/Branch/branch";
 import HomeCliente from "./components/Cliente/Home";
-import HomeRestaurante from "./components/Restaurante/Home/HomeRestaurante";
-import RegistroRestaurante from "./components/Restaurante/Registro/RegistroRestaurante";
-
-
-
+import HomeRestaurante from './components/Restaurante/Home';
 
 
 function App() {

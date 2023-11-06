@@ -11,14 +11,16 @@ export function traerCategorias() {
   };
 }
 
-export function guardarCategoria(categoria) {
+export function guardarRestaurante(restaurante) {
   return async function (dispatch) {
       return dispatch({
-      type: "GUARDAR_CATEGORIAS",
-      payload: categoria
+      type: "GUARDAR_RESTAURANTE",
+      payload: restaurante
     });
   };
 }
+
+
 
 export function guardarNuevoUsuario(usuario){
   return async function (dispatch) {
