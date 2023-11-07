@@ -15,18 +15,9 @@ const Registro = () => {
   const [loading, setLoading] = useState(true)
   const history = useHistory()
 
-  const [restaurante, setRestaurante] = useState({
-    correo: "",
-    contrasena: "",
-    nombre: "",
-    representante: "",
-    telefono: "",
-    direccion: "",
-    categorias:[]
-  });
+  const [restaurante, setRestaurante] = useState({});
 
   const handleSubmit = async() => {
-
     let json = await axios.post(
       `http://localhost:3001/restaurante/registro`,
       restaurante
@@ -60,9 +51,7 @@ const Registro = () => {
 
 return (
   loading ? <Loading/>:
-    <div className={styles.container}>  
-              
-
+    <div className={styles.container}>
               <div>
                 <label>Correo:</label>
                 <input
@@ -116,15 +105,14 @@ return (
         onChange={(item)=> setRestaurante({
           ...restaurante,
             categorias: item.map(cat => cat.id)
-          }) } />
+          })} />
               <div>
                 <button onClick={handleSubmit}>Crear Restaurante</button>
               </div> 
 
               <div>
                 <button onClick={InicioSeSion}>Atrás</button>
-              </div>  
-                     
+              </div>                  
      </div>
 )
 }
