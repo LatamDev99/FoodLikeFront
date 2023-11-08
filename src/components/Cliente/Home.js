@@ -6,6 +6,9 @@ import Recuperar from "./Contraseña/Recuperar";
 import Actualizar from "./Contraseña/Actualizar";
 import RegistroDetalles from "./Registro/RegistroDetalles";
 import Home from "./Home/Home";
+import Serca from "./Serca/Serca";
+import LoMas from "./LoMas/LoMas";
+import Pedidos from "./Pedidos/Pedidos";
 
 function HomeCliente() {
   return (
@@ -17,6 +20,9 @@ function HomeCliente() {
         <Route path="/cliente/preferencias" component={Preferencias}/>
         <Route path="/cliente/recuperar" component={Recuperar}/>
         <Route path="/cliente/actualizar" component={Actualizar}/>
+        <Route path="/cliente/serca" component={Serca}/>
+        <Route path="/cliente/lomas" component={LoMas}/>
+        <Route path="/cliente/pedidos" component={Pedidos}/>
         <Route path="/cliente" component={Home}/>
       </Switch>
     </BrowserRouter>

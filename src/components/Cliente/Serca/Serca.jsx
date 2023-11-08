@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import styles from "./Home.module.css"
+import MapaVista from '../Mapa/MapaVista';
+import styles from "./Serca.module.css"
 import Search from '../Search/Search';
 import NavBar from '../NavBar/NavBar';
 import ToggleNavbar from '../NavBar/ToggleNavBar';
 import Footer from '../Footer/Footer';
-import Inicio from '../Inicio/Inicio';
-const Home = () => {
+const Serca = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -16,10 +16,10 @@ const Home = () => {
       <ToggleNavbar isOpen={isOpen} toggleNavbar={toggleNavbar}/>
       <NavBar toggleNavbar={toggleNavbar}/>
       <Search/>
-      <Inicio/>
+      <MapaVista/>
       <Footer/>
     </div>
   )
 }
 
-export default Home
+export default Serca

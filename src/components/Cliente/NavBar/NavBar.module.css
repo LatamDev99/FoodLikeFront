@@ -1,0 +1,138 @@
+.navBar {
+    position: fixed;
+    width: 90vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(30, 30, 49, 0.95);
+    color: white;
+    z-index: 9998;
+}
+
+.menu {
+    display: flex;
+}
+
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.option{
+    margin-right: 20px;
+}
+
+.optName{
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.optName:hover{
+    color: #1c18e9;
+}
+
+
+/* CSS Toggle NavBar */
+.navbar {
+    position: fixed;
+    left: -250px; /* Oculta el Navbar fuera de la pantalla izquierda */
+    top: 0;
+    bottom: 0;
+    width: 200px; /* Ancho del Navbar cuando está abierto */
+    background-color: rgb(255, 255, 255);
+    transition: left 0.3s ease;
+    z-index: 9999;
+  }
+  
+  .open {
+    left: 0; /* Muestra el Navbar cuando está abierto */
+  }
+  
+  .toggleButton {
+    display: none;
+    width: 100px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .direccion{
+    color: black;
+    position: absolute;
+    left: 30%;
+    right: 30%;
+  }
+
+  .gift{
+    top: 5px;
+    right: 10px;
+    width: 100px;
+    position: absolute;
+  }
+  
+  .navList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navList li {
+    padding: 10px 0;
+  }
+  
+  .navList a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navList a:hover {
+    background-color: #555;
+    color: #fff;
+  }
+  
+
+@media (max-width: 459px) {
+
+    .navBar{
+      background-color: transparent;
+    }
+
+    .navbar{
+      display: flex;
+      top: 0px;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .toggleButton{
+        display: flex;
+        top: 0px;
+    }
+
+  .gift{
+    width: 40px;
+    height: 40px;
+  }
+
+}
