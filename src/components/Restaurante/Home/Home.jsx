@@ -16,6 +16,11 @@ const Home = () => {
       history.push(`/restaurante/configuracion`)
     }}
 
+    const agregarPlatillos = () =>{{
+      history.push(`/restaurante/agregarplatillos`)
+    }}
+    
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false)
@@ -74,7 +79,9 @@ const Home = () => {
             )}
           </label>     
 
-      <button onClick={actualizarDatos}>Configurar tus datos</button>
+          <button onClick={actualizarDatos}>Configurar tus datos</button>
+
+          <button onClick={agregarPlatillos}>Agregar Platillos</button>
       
 
     </div>

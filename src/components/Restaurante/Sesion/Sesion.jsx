@@ -16,14 +16,10 @@ import { guardarRestaurante } from '../../../actions'
 
 const Sesion = () => {
   const [loading, setLoading] = useState(true)
-  const [restaurante, setRestaurante] = useState({
-    correo:"",
-    contrasena:""
-  })
-
+  const [restaurante, setRestaurante] = useState({})
+  
   const dispatch = useDispatch();
   const history = useHistory();  
-
 
   const handleSubmit = async () => {
 
@@ -37,8 +33,7 @@ const Sesion = () => {
             history.push("/restaurante/")
           }, 500);
       }      
-  }  
-
+  } 
 
   const handleChange = (e) => {
     setRestaurante({
@@ -82,6 +77,7 @@ const Sesion = () => {
           <img className={styles.icon} src={twitter} alt="" />
         </div>
         <button onClick={handleSubmit} className={styles.btn}>Iniciar Sesion</button>
+
       </div>
   )
 }

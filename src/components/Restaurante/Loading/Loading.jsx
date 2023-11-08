@@ -4,7 +4,7 @@ import styles from "./Loading.module.css"
 
 const Loading = () => {
   return (
-    <div className={styles.conteiner}>
+    <div className={styles.container}>
         <img src={reload} alt="" />
     </div>
   )
