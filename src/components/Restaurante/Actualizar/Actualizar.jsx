@@ -29,12 +29,13 @@ const Actualizar = () => {
         history.push(`http://localhost:3000/restaurante/sesion`)
       }
     }
-
     const handleChange = (e) => {
       setActualizar({
         ...actualizar,
         [e.target.name]: e.target.value,
       });
+
+      console.log(restaurante)
     }
 
     const HomeSesion = () =>{
