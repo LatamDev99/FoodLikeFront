@@ -13,7 +13,7 @@ const ToggleNavbar = ({isOpen, toggleNavbar}) => {
         <li><a href="#proyectos" onClick={toggleNavbar}>Mis Descuentos</a></li>
         <li><a href="#saber-mas" onClick={toggleNavbar}>Favoritos</a></li>
         <li><a href="#contacto" onClick={toggleNavbar}>Configuracion</a></li>
-        <li><a href="#contacto" onClick={toggleNavbar}>Comentarios</a></li>
+        <li><a href="https://foodlike.canny.io/" onClick={toggleNavbar}>Comentarios</a></li>
         <li><a href="#contacto" onClick={toggleNavbar}>Ayuda</a></li>
       </ul>
     </div>

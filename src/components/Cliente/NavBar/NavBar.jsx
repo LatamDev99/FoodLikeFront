@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styles from './NavBar.module.css';
 import gift from "../assets/gift.svg"
 
-const NavBar = ({toggleNavbar}) => {
+const NavBar = ({toggleNavbar, direccion}) => {
 
   return (
     <nav className={styles.navBar}>
       <button className={styles.toggleButton} onClick={toggleNavbar}>
         ☰
       </button>
-      <span className={styles.direccion}>Aqui va la direccion</span>
+      <span className={styles.direccion}>{direccion && direccion}</span>
       <img className={styles.gift} src={gift} alt="" />
       <div className={styles.menu}>
         <ul className={styles.options}>
