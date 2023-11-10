@@ -21,6 +21,20 @@ export function guardarRestaurante(restaurante) {
 }
 
 
+export function seleccionarCategoriaPlatillo(categoria) {
+  return async function (dispatch) {
+      return dispatch({
+      type: "AGREGAR_CATEGORIA_PLATILLO",
+      payload: categoria
+    });
+  };
+}
+
+
+
+
+
+
 
 export function guardarNuevoUsuario(usuario){
   return async function (dispatch) {
