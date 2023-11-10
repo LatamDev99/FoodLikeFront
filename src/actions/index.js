@@ -21,6 +21,17 @@ export function guardarRestaurante(restaurante) {
 }
 
 
+export function guardarPlatillos(platillos) {
+  return async function (dispatch) {
+      return dispatch({
+      type: "GUARDAR_PLATILLOS",
+      payload: platillos
+    });
+  };
+}
+
+
+
 export function seleccionarCategoriaPlatillo(categoria) {
   return async function (dispatch) {
       return dispatch({
@@ -29,10 +40,6 @@ export function seleccionarCategoriaPlatillo(categoria) {
     });
   };
 }
-
-
-
-
 
 
 

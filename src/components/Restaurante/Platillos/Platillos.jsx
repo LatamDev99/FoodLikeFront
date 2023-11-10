@@ -43,14 +43,14 @@ const Platillos = () => {
         history.push("/restaurante/")
       }
 
-    const CrearPlatillo = () =>{
-      dispatch(seleccionarCategoriaPlatillo(categoriaSeleccionada.data))
+    const CrearPlatillo = () =>{      
+      if(categoriaSeleccionada?.data?.id?.length>0){
+       dispatch(seleccionarCategoriaPlatillo(categoriaSeleccionada.data))
 
-        history.push("/restaurante/crearplatillo")
-      
+        history.push("/restaurante/crearplatillo") 
+      }         
     }
       
-
     useEffect(() => {
         setTimeout(() => {
           setLoading(false)

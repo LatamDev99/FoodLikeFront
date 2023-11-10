@@ -5,7 +5,8 @@ const initialState = {
     nuevoUsuario: {},
     usuario: {},
     restaurante: {},
-    categoriaPlatillo: []
+    categoriaPlatillo: [],
+    platillos: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,7 +23,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         restaurante: action.payload,
-      }        
+      } 
+
+      case "GUARDAR_PLATILLOS":
+      return {
+        ...state,
+        platillos: action.payload,
+      } 
+      
+      
 
       case "AGREGAR_CATEGORIA_PLATILLO":
       return {

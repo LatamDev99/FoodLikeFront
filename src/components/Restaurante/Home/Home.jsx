@@ -7,8 +7,12 @@ import Select from 'react-select'
 
 const Home = () => {
     const restaurante = useSelector(state => state.restaurante)
+    const platillos = useSelector(state => state.platillos)
     const [loading, setLoading] = useState(true)
     const history = useHistory()
+
+
+    console.log(platillos)
 
     const actualizarDatos = () =>{{
       history.push(`/restaurante/configuracion`)
