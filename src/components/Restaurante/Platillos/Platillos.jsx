@@ -22,7 +22,6 @@ const Platillos = () => {
     const dispatch = useDispatch()
    
     const crearCategoriaPlatillo = async () =>{
-
         let json = await axios.post(
             `http://localhost:3001/categoriaPlatillo/agregar/`,
             platillos

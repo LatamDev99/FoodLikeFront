@@ -34,8 +34,6 @@ const Actualizar = () => {
         ...actualizar,
         [e.target.name]: e.target.value,
       });
-
-      console.log(restaurante)
     }
 
     const HomeSesion = () =>{
