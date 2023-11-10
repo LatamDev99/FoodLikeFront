@@ -1,9 +1,12 @@
+import { act } from "react-dom/test-utils"
 
 const initialState = {
     categoria: [],
     nuevoUsuario: {},
     usuario: {},
-    restaurante: {}
+    restaurante: {},
+    categoriaPlatillo: [],
+    platillos: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,11 +23,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         restaurante: action.payload,
-      }  
+      } 
 
+      case "GUARDAR_PLATILLOS":
+      return {
+        ...state,
+        platillos: action.payload,
+      } 
+      
       
 
-
+      case "AGREGAR_CATEGORIA_PLATILLO":
+      return {
+        ...state,
+        categoriaPlatillo: action.payload,
+      }     
 
       case "GUARDAR_NUEVO_USUARIO":
       return {

@@ -3,14 +3,16 @@ import { useSelector } from "react-redux";
 import Loading from '../Loading/Loading';
 import styles from './Home.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-
+import Select from 'react-select'
 
 const Home = () => {
     const restaurante = useSelector(state => state.restaurante)
+    const platillos = useSelector(state => state.platillos)
     const [loading, setLoading] = useState(true)
     const history = useHistory()
 
-    const categorias = restaurante.CategoriaRestaurantes?.map(categoriaRestaurante => categoriaRestaurante.label);
+
+    console.log(platillos)
 
     const actualizarDatos = () =>{{
       history.push(`/restaurante/configuracion`)
@@ -36,7 +38,9 @@ const Home = () => {
       <label>Correo: {restaurante.correo}</label>
       <label>Telefono: {restaurante.telefono}</label>
       <label>Dirección: {restaurante.direccion}</label>
-      <label>Categorias: {`${categorias }   `}  </label>
+      <label>Categorias:</label> 
+      <Select isMulti value={restaurante.CategoriaRestaurantes} isDisabled
+      />
 
       <label>Horario:</label>
             <label>

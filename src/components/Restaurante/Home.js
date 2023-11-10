@@ -4,6 +4,8 @@ import Sesion from "./Sesion/Sesion";
 import Home from "./Home/Home";
 import Actualizar from "./Actualizar/Actualizar"
 import Platillos from "./Platillos/Platillos";
+import CrearPlatillo from "./CrearPlatillo/CrearPlatillo"
+import { useSelector } from "react-redux";
 
 
 function HomeRestaurante() {
@@ -14,8 +16,8 @@ function HomeRestaurante() {
         <Route path="/restaurante/registro" component={Registro}/>
         <Route path="/restaurante/configuracion" component={Actualizar}/>
         <Route path="/restaurante/agregarplatillos" component={Platillos}/>
+        <Route path="/restaurante/crearplatillo" component={CrearPlatillo}/>
         <Route path="/restaurante" component={Home}/>
-
         </Switch>
       </BrowserRouter>
     );

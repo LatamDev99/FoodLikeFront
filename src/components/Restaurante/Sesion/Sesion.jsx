@@ -10,7 +10,7 @@ import google from "../../../img/google-color-svgrepo-com.svg"
 import twitter from "../../../img/twitter-svgrepo-com.svg"
 
 import { useDispatch } from "react-redux";
-import { guardarRestaurante } from '../../../actions'
+import { guardarRestaurante, guardarPlatillos } from '../../../actions'
 
 
 
@@ -26,6 +26,13 @@ const Sesion = () => {
         let json = await axios.post(`http://localhost:3001/restaurante/sesion`,restaurante)
 
         dispatch(guardarRestaurante(json.data[1]))
+
+        const platillos = {id_restaurante: json.data[1].id }
+
+        let json2 = await axios.post(`http://localhost:3001/platillo/restaurante`,
+        platillos)
+
+        dispatch(guardarPlatillos(json2.data))
 
         if(json.data[0]===true){
           setLoading(true)

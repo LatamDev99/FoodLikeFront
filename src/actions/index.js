@@ -21,6 +21,27 @@ export function guardarRestaurante(restaurante) {
 }
 
 
+export function guardarPlatillos(platillos) {
+  return async function (dispatch) {
+      return dispatch({
+      type: "GUARDAR_PLATILLOS",
+      payload: platillos
+    });
+  };
+}
+
+
+
+export function seleccionarCategoriaPlatillo(categoria) {
+  return async function (dispatch) {
+      return dispatch({
+      type: "AGREGAR_CATEGORIA_PLATILLO",
+      payload: categoria
+    });
+  };
+}
+
+
 
 export function guardarNuevoUsuario(usuario){
   return async function (dispatch) {

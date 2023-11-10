@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { seleccionarCategoriaPlatillo } from '../../../actions';
 
 import axios from 'axios';
 import Select from 'react-select'
@@ -15,6 +16,7 @@ const Platillos = () => {
     const [loading, setLoading] = useState(true)
     const [platillos, setPlatillos] = useState({idRestaurante: restaurante.id})
     const [actualizar, setActualizar] = useState(restaurante)
+    const [categoriaSeleccionada , setCategoriaSeleccionada] = useState()
 
     const history = useHistory()
     const dispatch = useDispatch()
@@ -24,9 +26,8 @@ const Platillos = () => {
         let json = await axios.post(
             `http://localhost:3001/categoriaPlatillo/agregar/`,
             platillos
-          )  
+          )           
         actualizar.CategoriaPlatillos.push(json.data)
-        console.log(actualizar)
         dispatch(guardarRestaurante(actualizar))
     }
 
@@ -35,12 +36,21 @@ const Platillos = () => {
           ...platillos,
           [e.target.name]: e.target.value,
      });
+
       }
 
     const HomeSesion = () =>{
         history.push("/restaurante/")
       }
 
+    const CrearPlatillo = () =>{      
+      if(categoriaSeleccionada?.data?.id?.length>0){
+       dispatch(seleccionarCategoriaPlatillo(categoriaSeleccionada.data))
+
+        history.push("/restaurante/crearplatillo") 
+      }         
+    }
+      
     useEffect(() => {
         setTimeout(() => {
           setLoading(false)
@@ -51,8 +61,7 @@ const Platillos = () => {
     loading ? <Loading /> :
     <div className={styles.container}>
 
-        <button onClick={HomeSesion}>Regresar atrás</button>
-            
+        <button onClick={HomeSesion}>Regresar atrás</button>            
             Agrega una categoría de platillos:
             <input 
             type="text"
@@ -61,9 +70,15 @@ const Platillos = () => {
             />
         <button onClick={crearCategoriaPlatillo}>Crear Categoria</button> 
 
-        <Select isMulti value={actualizar.CategoriaPlatillos} 
+        <Select options={actualizar.CategoriaPlatillos} 
+        onChange={(item)=> setCategoriaSeleccionada({
+                data:item
+          })}
+
           />
-        
+
+        <label>Selecciona una categoría para crear un platillo</label>
+        <button onClick={CrearPlatillo}>Crear Platillo</button> 
 
     </div>
   )
