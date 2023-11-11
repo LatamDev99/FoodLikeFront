@@ -29,6 +29,7 @@ const Platillo = () =>{
     }
 
     const guardarPlatillo = async() =>{
+
         let json = await axios.patch(
             `http://localhost:3001/platillo`,
             plat
@@ -37,6 +38,13 @@ const Platillo = () =>{
           if (json.data===true){
             history.push(`/restaurante/administrarplatillos`)
           }
+    }
+
+    const handleButton = () => {
+        setPlat({
+            ...plat,
+            activo: !plat.activo
+        });
     }
 
     useEffect(() => {
@@ -102,11 +110,11 @@ const Platillo = () =>{
             </div>
             <div>          
                 <label>Activo: </label>
-                <input 
+                <button 
                     type="text" 
                     name="activo" 
                     value={plat.activo}
-                    onChange={handleChange} />
+                    onClick={handleButton}>{plat.activo ? 'Activo' : 'Inactivo'}</button>
             </div>
                 <button onClick={guardarPlatillo}>Guardar</button>
             </div>

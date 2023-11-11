@@ -45,7 +45,7 @@ const DataPlatillos = ({ data }) => {
                   <td>{platillo.foto}</td>
                   <td>{platillo.promo}</td>
                   <td>{platillo.stock}</td>
-                  <td>{platillo.activo.toString()}</td>
+                  <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
                   <button onClick={()=>handleSubmit(platillo)}>Editar</button>
                 </tr>
                                
