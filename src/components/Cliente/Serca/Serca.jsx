@@ -24,7 +24,6 @@ const Serca = () => {
           const longitud = position.coords.longitude;
           setLat(latitud);
           setLng(longitud);
-          console.log(latitud, longitud);
           convertirCoordenadasADireccion(latitud, longitud);
         },
         (error) => {
@@ -43,7 +42,6 @@ const Serca = () => {
       .then(data => {
         if (data && data.address) {
           const direccion = data.address.LongLabel;
-          console.log('Dirección:', direccion);
           setDireccion(direccion);
         } else {
           console.error('No se encontraron resultados');

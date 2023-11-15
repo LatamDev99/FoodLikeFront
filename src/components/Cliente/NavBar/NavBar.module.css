@@ -1,13 +1,10 @@
 .navBar {
     position: fixed;
-    width: 90vw;
+    width: 100vw;
     top: 0;
-    left: 0;
-    right: 0;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px;
     background-color: rgba(30, 30, 49, 0.95);
     color: white;
     z-index: 9998;

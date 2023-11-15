@@ -1,7 +1,8 @@
 
   .searchBarContainer {
     position: relative;
-    width: 90vw;
+    width: 75vw;
+    /* margin-top: 10vw; */
   }
   
   .inputContainer {
