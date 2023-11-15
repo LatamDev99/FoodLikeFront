@@ -11,9 +11,6 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
     const history = useHistory()
 
-
-    console.log(platillos)
-
     const actualizarDatos = () =>{{
       history.push(`/restaurante/configuracion`)
     }}
@@ -21,7 +18,11 @@ const Home = () => {
     const agregarPlatillos = () =>{{
       history.push(`/restaurante/agregarplatillos`)
     }}
-    
+
+    const administrarPlatillos = () =>{{
+      history.push(`/restaurante/administrarplatillos`)
+    }}
+
 
     useEffect(() => {
       setTimeout(() => {
@@ -86,6 +87,8 @@ const Home = () => {
           <button onClick={actualizarDatos}>Configurar tus datos</button>
 
           <button onClick={agregarPlatillos}>Agregar Platillos</button>
+
+          <button onClick={administrarPlatillos}>Administrar Platillos</button>
       
 
     </div>

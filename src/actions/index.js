@@ -30,6 +30,15 @@ export function guardarPlatillos(platillos) {
   };
 }
 
+export function editarPlatillo(platillo) {
+  return async function (dispatch) {
+      return dispatch({
+      type: "EDITAR_PLATILLO",
+      payload: platillo
+    });
+  };
+}
+
 
 
 export function seleccionarCategoriaPlatillo(categoria) {

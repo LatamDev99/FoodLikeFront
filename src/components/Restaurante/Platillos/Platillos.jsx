@@ -23,12 +23,16 @@ const Platillos = () => {
    
     const crearCategoriaPlatillo = async () =>{
 
+
+      if(platillos.nombre.length>0){
         let json = await axios.post(
             `http://localhost:3001/categoriaPlatillo/agregar/`,
             platillos
           )           
         actualizar.CategoriaPlatillos.push(json.data)
         dispatch(guardarRestaurante(actualizar))
+      }
+        
     }
 
     const handleChange = (e) => {

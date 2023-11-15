@@ -27,11 +27,13 @@ const Sesion = () => {
 
         dispatch(guardarRestaurante(json.data[1]))
 
-        const platillos = {id_restaurante: json.data[1].id }
+        const {CategoriaPlatillos} = json.data[1]
+
+        const soloIds = CategoriaPlatillos.map(categoria => categoria.id);
 
         let json2 = await axios.post(`http://localhost:3001/platillo/restaurante`,
-        platillos)
-
+        soloIds)
+        console.log(json.data)
         dispatch(guardarPlatillos(json2.data))
 
         if(json.data[0]===true){

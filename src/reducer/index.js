@@ -6,7 +6,8 @@ const initialState = {
     usuario: {},
     restaurante: {},
     categoriaPlatillo: [],
-    platillos: []
+    platillos: [],
+    platilloEditar: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,7 +30,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         platillos: action.payload,
-      } 
+      }
+      
+      case "EDITAR_PLATILLO":
+      return {
+        ...state,
+        platilloEditar: action.payload,
+      }
       
       
 

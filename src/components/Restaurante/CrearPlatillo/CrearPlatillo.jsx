@@ -1,30 +1,33 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useState } from 'react'
 
+
 import axios from "axios";
 import styles from './CrearPlatillo.module.css'
+import { guardarPlatillos } from '../../../actions';
 
 const CrearPlatillo = () =>{
 
-    const categoriaPlatillo = useSelector(state => state.categoriaPlatillo)
+  const categoriaPlatillo = useSelector(state => state.categoriaPlatillo)
+  const dataPlatillos = useSelector(state => state.platillos)
+  const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.
+  id})
 
-    const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.id})
-    
     const history = useHistory()
-
+    const dispatch = useDispatch()
 
     const handleSubmit = async() =>{
         let json = await axios.post(
             `http://localhost:3001/platillo`,
             platillo
           )
+
         if(json.data==true){
-            history.push("/restaurante")
+            history.push("/restaurante/agregarplatillos")
         }
     }
     
-
     const handleChange = (e) => {
         setPlatillo({
           ...platillo,
@@ -39,6 +42,10 @@ const CrearPlatillo = () =>{
     return(
         <div className={styles.container}>
             <button onClick={ButtonRegresa}>Atrás</button>
+
+            <div>
+              <label>Categoría:  {categoriaPlatillo.nombre}</label>
+            </div>
             <div>
                 <label>Nombre: </label>
                 <input
@@ -87,12 +94,9 @@ const CrearPlatillo = () =>{
                   onChange={handleChange}
                 />
             </div>
-
             <div>
-                <button onClick={handleSubmit}>Crear Restaurante</button>
+                <button onClick={handleSubmit}>Crear</button>
               </div> 
-
-
         </div>
     )
 }
