@@ -7,8 +7,6 @@ import axios from "axios";
 import DataPlatillos from "./Tabla/Tabla";
 
 
-
-
 const AdministrarPlatillos = () =>{
 
     const restaurante = useSelector(state => state.restaurante)
@@ -18,7 +16,8 @@ const AdministrarPlatillos = () =>{
     const history = useHistory()
 
     const {CategoriaPlatillos} = restaurante
-    const soloIds = CategoriaPlatillos.map(categoria => categoria.id);
+
+    const soloIds = CategoriaPlatillos?.map(categoria => categoria.id);
 
     const fetchData = async () => {
         

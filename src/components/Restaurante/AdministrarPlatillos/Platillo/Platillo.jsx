@@ -59,7 +59,7 @@ const Platillo = () =>{
 
             <button onClick={administrarPlatillos}>Atrás</button>
 
-            <h2>Categoría  {CategoriaPlatillo.nombre}</h2>
+            <h2>Categoría  {CategoriaPlatillo?.nombre}</h2>
             <div>          
                 <label>Nombre: </label>
                 <input 
