@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils"
 
 const initialState = {
     categoria: [],
@@ -37,8 +36,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         platilloEditar: action.payload,
       }
-      
-      
+
+      case 'ELIMINAR_PLATILLO':
+      return {
+        ...state,
+        platillos: state.platillos.filter(platillo => platillo.id !== action.payload),
+      };
+
 
       case "AGREGAR_CATEGORIA_PLATILLO":
       return {

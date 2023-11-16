@@ -10,7 +10,6 @@ import { guardarPlatillos } from '../../../actions';
 const CrearPlatillo = () =>{
 
   const categoriaPlatillo = useSelector(state => state.categoriaPlatillo)
-  const dataPlatillos = useSelector(state => state.platillos)
   const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.
   id})
 
