@@ -14,8 +14,7 @@ const Platillo = () =>{
     const [plat, setPlat ] = useState(platillo)
     const history = useHistory()
 
-    const {CategoriaPlatillo} = platillo
-    
+    const {CategoriaPlatillo} = platillo    
 
     const administrarPlatillos = () =>{
         history.push(`/restaurante/administrarplatillos`)
