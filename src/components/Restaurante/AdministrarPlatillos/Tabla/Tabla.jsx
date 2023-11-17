@@ -82,7 +82,7 @@ const DataPlatillos = ({ data  }) => {
                   <td>{platillo.nombre}</td>
                   <td>{platillo.descripcion}</td>
                   <td>{platillo.precio}</td>
-                  <td>{platillo.foto}</td>
+                  <td><img src={platillo.foto} alt="" /></td>
                   <td>{platillo.promo}</td>
                   <td>{platillo.stock}</td>
                   <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
