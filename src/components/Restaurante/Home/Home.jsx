@@ -56,7 +56,7 @@ const Home = () => {
             {restaurante.logo === null || restaurante.logo === "" ? (
               <label style={{ color: "red" }}>Necesitas agregar tu logo</label>
             ) : (
-              <label>{restaurante.logo}</label>
+              <img src={restaurante.logo}></img>
             )}
           </label>
       <label>Fachada:</label>
@@ -64,7 +64,7 @@ const Home = () => {
             {restaurante.fachada === null || restaurante.fachada === "" ? (
               <label style={{ color: "red" }}>Necesitas agregar la foto de tu fachada</label>
             ) : (
-              <label>{restaurante.fachada}</label>
+              <img src={restaurante.fachada}></img>
             )}
           </label>
       <label>Cuenta Bancaria:</label>

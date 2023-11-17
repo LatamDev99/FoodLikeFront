@@ -14,6 +14,20 @@ const Actualizar = () => {
     const categoria = useSelector(state => state.categoria)
     const [actualizar, setActualizar] = useState(restaurante)
     const [loading, setLoading] = useState(true)
+
+
+    const [profileImage, setProfileImage] = useState("")
+    const [imagePreview, setImagePreview] = useState(null)
+    const [isLoading, setIsLoading] = useState(null)
+
+
+    const [profileImage2, setProfileImage2] = useState("")
+    const [imagePreview2, setImagePreview2] = useState(null)
+    const [isLoading2, setIsLoading2] = useState(null)
+
+
+    const upload_preset = "images"
+
  
     const history = useHistory()
     const dispatch = useDispatch()
@@ -29,12 +43,26 @@ const Actualizar = () => {
         history.push(`http://localhost:3000/restaurante/sesion`)
       }
     }
+
+    const handleImageChangue = async(e) =>{
+      setProfileImage(e.target.files[0])
+      setImagePreview(URL.createObjectURL(e.target.files[0]))
+      setIsLoading(true)
+    }
+
+    const handleImageChangue2 = async(e) =>{
+      setProfileImage2(e.target.files[0])
+      setImagePreview2(URL.createObjectURL(e.target.files[0]))
+      setIsLoading2(true)
+    }
+
     const handleChange = (e) => {
       setActualizar({
         ...actualizar,
         [e.target.name]: e.target.value,
       });
     }
+  
 
     const HomeSesion = () =>{
       history.push("/restaurante/")
@@ -46,6 +74,70 @@ const Actualizar = () => {
         setLoading(false)
       }, 1000);
     },[dispatch])
+
+    useEffect(() => {
+      const uploadImageToCloudinary = async () => {
+        if (profileImage && ( 
+          profileImage.type === "image/png" ||  
+          profileImage.type === "image/jpg" ||
+          profileImage.type === "image/jpeg"      
+        )) {
+          const image = new FormData();
+          image.append("file", profileImage);
+          image.append("upload_preset", upload_preset);
+    
+          try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dzhx3cwlp/image/upload", image);
+            
+            const imgData = response.data;
+            if (imgData.url) {
+              const imageURL = imgData.url.toString();
+              actualizar.logo = imageURL
+              setIsLoading(false);
+            } else {
+              console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
+            }
+          } catch (error) {
+            console.error('Error durante la carga de la imagen a Cloudinary:', error);
+            setIsLoading(false);
+          }
+        }
+      };
+    
+      uploadImageToCloudinary();
+    }, [profileImage]);
+
+    useEffect(() => {
+      const uploadImageToCloudinary = async () => {
+        if (profileImage2 && ( 
+          profileImage2.type === "image/png" ||  
+          profileImage2.type === "image/jpg" ||
+          profileImage2.type === "image/jpeg"      
+        )) {
+          const image = new FormData();
+          image.append("file", profileImage2);
+          image.append("upload_preset", upload_preset);
+    
+          try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dzhx3cwlp/image/upload", image);
+            
+            const imgData = response.data;
+            if (imgData.url) {
+              const imageURL = imgData.url.toString();
+              actualizar.fachada = imageURL
+              setIsLoading(false);
+            } else {
+              console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
+            }
+          } catch (error) {
+            console.error('Error durante la carga de la imagen a Cloudinary:', error);
+            setIsLoading(false);
+          }
+        }
+      };
+    
+      uploadImageToCloudinary();
+    }, [profileImage2]);
 
   return (
     loading ? <Loading /> :
@@ -69,20 +161,47 @@ const Actualizar = () => {
             value={actualizar.horario}
             onChange={handleChange}
             />
-        <label>Logo:</label>
-          <input
-            type="text"
-            name="logo"
-            value={actualizar.logo}
-            onChange={handleChange}     
-            />
-        <label>Fachada:</label>
-            <input
-            type="text"
-            name="fachada"
-            value={actualizar.fachada}
-            onChange={handleChange}
-            />
+          <label>Logo:</label> 
+              <div>        
+                  <p>                                   
+                    <p><img src={actualizar.logo}/></p>
+                    <input type="file" accept='image/png, image/jpeg' name="logo" onChange={handleImageChangue}></input>
+                  </p>
+                <p>
+                </p>
+                  <div>
+                  {isLoading !== null && (
+                    <div>
+                      {isLoading ? (
+                        <p>Cargando...</p>
+                      ) : (
+                        <p>Cargado</p>
+                      )}
+                    </div>
+                  )}
+                  </div>
+              </div>
+
+               <label>Fachada:</label> 
+              <div>        
+                  <p>                                   
+                    <p><img src={actualizar.fachada}/></p>
+                    <input type="file" accept='image/png, image/jpeg' name="fachada" onChange={handleImageChangue2}></input>
+                  </p>
+                <p>
+                </p>
+                  <div>
+                  {isLoading2 !== null && (
+                    <div>
+                      {isLoading2 ? (
+                        <p>Cargando...</p>
+                      ) : (
+                        <p>Cargado</p>
+                      )}
+                    </div>
+                  )}
+                  </div>
+              </div>  
         <label>Cuenta Bancaria:</label>
             <input
             type="text"

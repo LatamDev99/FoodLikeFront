@@ -134,7 +134,6 @@ const Platillo = () =>{
             </div>
             <div>        
                 <p>
-                  <label>Foto:</label>
                   <input type="file" accept='image/png, image/jpeg' name="foto" onChange={handleImageChangue}></input>
                 </p>
               <p>
