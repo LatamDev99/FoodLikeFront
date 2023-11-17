@@ -1,0 +1,28 @@
+/* Inicio.module.css */
+.conteiner {
+    max-width: 100%; /* Ajusta el ancho según sea necesario */
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+  }
+  
+  .text {
+    text-align: center; /* Centra el texto */
+  }
+  
+  .categorias {
+    display: flex; /* Usa un contenedor flexible */
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+    white-space: nowrap; /* Evita que las categorías se envuelvan a la siguiente línea */
+    margin: 10px 0; /* Añade margen superior e inferior */
+  }
+  
+  .item {
+    flex: 0 0 auto; /* No se estira, no se encoge, tamaño automático */
+    margin-right: 10px; /* Añade margen derecho entre elementos */
+    text-align: center; /* Centra el contenido */
+  }
+  
+  .item img {
+    width: 50px; /* Ajusta el ancho de la imagen según sea necesario */
+    height: 50px; /* Ajusta la altura de la imagen según sea necesario */
+  }
+  
