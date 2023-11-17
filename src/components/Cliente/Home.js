@@ -9,6 +9,7 @@ import Home from "./Home/Home";
 import Serca from "./Serca/Serca";
 import LoMas from "./LoMas/LoMas";
 import Pedidos from "./Pedidos/Pedidos";
+import Perfil from "./Perfil/Perfil";
 
 function HomeCliente() {
   return (
@@ -23,6 +24,7 @@ function HomeCliente() {
         <Route path="/cliente/serca" component={Serca}/>
         <Route path="/cliente/lomas" component={LoMas}/>
         <Route path="/cliente/pedidos" component={Pedidos}/>
+        <Route path="/cliente/perfil" component={Perfil}/>
         <Route path="/cliente" component={Home}/>
       </Switch>
     </BrowserRouter>
