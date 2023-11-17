@@ -6,7 +6,7 @@ import Actualizar from "./Actualizar/Actualizar"
 import Platillos from "./Platillos/Platillos";
 import CrearPlatillo from "./CrearPlatillo/CrearPlatillo"
 import AdministrarPlatillos from "./AdministrarPlatillos/AdministrarPlatillos";
-import Platillo from "./AdministrarPlatillos/Platillo/Platillo";
+import EditarPlatillo from "./AdministrarPlatillos/EditarPlatillo/EditarPlatillo";
 
 
 
@@ -21,7 +21,7 @@ function HomeRestaurante() {
         <Route path="/restaurante/agregarplatillos" component={Platillos}/>
         <Route path="/restaurante/crearplatillo" component={CrearPlatillo}/>
         <Route path="/restaurante/administrarplatillos" component={AdministrarPlatillos}/>
-        <Route path="/restaurante/editarplatillo" component={Platillo}/>
+        <Route path="/restaurante/editarplatillo" component={EditarPlatillo }/>
         <Route path="/restaurante" component={Home}/>
         </Switch>
       </BrowserRouter>

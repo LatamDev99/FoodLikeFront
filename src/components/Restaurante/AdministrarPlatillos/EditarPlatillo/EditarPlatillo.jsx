@@ -14,8 +14,7 @@ const Platillo = () =>{
     const [plat, setPlat ] = useState(platillo)
     const history = useHistory()
 
-    const {CategoriaPlatillo} = platillo
-    
+    const {CategoriaPlatillo} = platillo    
 
     const administrarPlatillos = () =>{
         history.push(`/restaurante/administrarplatillos`)
@@ -59,7 +58,7 @@ const Platillo = () =>{
 
             <button onClick={administrarPlatillos}>Atrás</button>
 
-            <h2>Categoría  {CategoriaPlatillo.nombre}</h2>
+            <h2>Categoría  {CategoriaPlatillo?.nombre}</h2>
             <div>          
                 <label>Nombre: </label>
                 <input 

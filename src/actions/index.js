@@ -40,6 +40,15 @@ export function editarPlatillo(platillo) {
 }
 
 
+export function eliminarPlatillo(platilloId){
+  return async function (dispatch) {
+      return dispatch({
+        type: 'ELIMINAR_PLATILLO',
+        payload: platilloId,
+    });
+  };
+}
+
 
 export function seleccionarCategoriaPlatillo(categoria) {
   return async function (dispatch) {

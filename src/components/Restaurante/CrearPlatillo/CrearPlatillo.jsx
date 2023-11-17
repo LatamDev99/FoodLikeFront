@@ -3,14 +3,77 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useState } from 'react'
 
 
+
 import axios from "axios";
 import styles from './CrearPlatillo.module.css'
-import { guardarPlatillos } from '../../../actions';
 
 const CrearPlatillo = () =>{
 
+  const [profileImage, setProfileImage] = useState("")
+  const [imagePreview, setImagePreview] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const upload_preset = "ml_default"
+
+
+  const handleImageChangue = (e) =>{
+    setProfileImage(e.target.files[0])
+    setImagePreview(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const uploadImage = async(e) =>{
+    e.preventDefault()
+    setIsLoading(true)
+
+    try {
+      let imageURL
+
+      if( profileImage && ( 
+        profileImage.type === "image/png" ||  
+        profileImage.type === "image/jpg" ||
+        profileImage.type === "image/jpeg"      
+      ) ){
+
+        const cloudinary = axios.create({
+          baseURL: "https://api.cloudinary.com/v1_1/dzhx3cwlp",
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          auth: {
+            username: '163442117916774',
+            password: 'nWI9b-767ucMCamjEjXLX8yU0a0',
+          },  
+        });
+        
+        const image = new FormData();
+        image.append("file", profileImage);
+        image.append("upload_preset", upload_preset);
+
+        try {
+          const response = await cloudinary.post("/upload", image);
+          const imgData = response.data;
+          if (imgData.url) {
+            const imageURL = imgData.url.toString();
+            console.log(imageURL);
+            setImagePreview(null);
+          } else {
+            console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
+          }
+        } catch (error) {
+          console.error('Error durante la carga de la imagen a Cloudinary:', error);
+          setIsLoading(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error durante la carga de la imagen a Cloudinary:', error);
+      setIsLoading(false)
+    }
+  }
+
+
+
+  ///////////////////////////
+
   const categoriaPlatillo = useSelector(state => state.categoriaPlatillo)
-  const dataPlatillos = useSelector(state => state.platillos)
   const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.
   id})
 
@@ -97,6 +160,44 @@ const CrearPlatillo = () =>{
             <div>
                 <button onClick={handleSubmit}>Crear</button>
               </div> 
+
+              {/* //////////////////// */}
+
+              <div>
+      <section className="--flex-center">
+      <div className='container'> 
+        <div className='card'>
+          <form onSubmit={uploadImage} className='--form-control'>
+            <p>
+              <label>Photo:</label>
+              <input type="file" accept='image/png, image/jpeg' name="image" onChange={handleImageChangue}></input>
+            </p>
+            <p>
+              {
+              isLoading ?  ("Uploading...") : (
+                <button type="submit" className="--btn --btn-primary">
+                  Upload Image
+                </button>
+              )
+              }
+            </p>
+          </form>
+
+              <div className={styles.profilephoto}>
+                <div>
+                  {imagePreview && (
+                    <img src={imagePreview && imagePreview} alt="profileImg" />
+                  )}
+                </div>
+              </div>
+
+        </div>
+      </div>
+      </section>
+              </div>
+
+
+              {/* ///////////// */}
         </div>
     )
 }
