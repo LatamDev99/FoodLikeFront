@@ -12,8 +12,7 @@ const CrearPlatillo = () =>{
   const [isLoading, setIsLoading] = useState(null)
 
   const categoriaPlatillo = useSelector(state => state.categoriaPlatillo)
-  const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.
-  id})
+  const [platillo, setPlatillo] = useState({categoriaId:categoriaPlatillo.id})
 
   const upload_preset = "images"
   const history = useHistory()
@@ -25,7 +24,7 @@ const CrearPlatillo = () =>{
     setIsLoading(true)
   }
  
-  const handleSubmit = async() =>{
+  const agregarPlatillo = async() =>{
     let json = await axios.post(
       `http://localhost:3001/platillo`,
       platillo
@@ -35,6 +34,17 @@ const CrearPlatillo = () =>{
         history.push("/restaurante/agregarplatillos")
     }      
   }
+
+  const agregarAdministrarPlatillo = async() =>{{
+    let json = await axios.post(
+      `http://localhost:3001/platillo`,
+      platillo
+    )
+
+    if(json.data==true){
+      history.push(`/restaurante/administrarplatillos`)
+    }   
+  }}
 
   const ButtonRegresa = () =>{
       history.push("/restaurante/agregarplatillos")
@@ -46,6 +56,17 @@ const CrearPlatillo = () =>{
       [e.target.name]: e.target.value,
     }));
   }
+
+  const platilloCompleto = () => {
+    return (
+      platillo.nombre &&
+      platillo.descripcion &&
+      platillo.precio &&
+      platillo.promo &&
+      platillo.foto &&
+      platillo.stock
+    );
+  };
   
   useEffect(() => {
     const uploadImageToCloudinary = async () => {
@@ -158,8 +179,11 @@ const CrearPlatillo = () =>{
                 />
             </div>
             <div>
-                <button onClick={handleSubmit}>Crear</button>
-              </div> 
+            <button onClick={agregarPlatillo} disabled={!platilloCompleto()}>Agregar Platillo</button>
+            </div> 
+            <div>
+            <button onClick={agregarAdministrarPlatillo} disabled={!platilloCompleto()}>Agregar y Administrar Platillos</button>
+            </div> 
         </div>
     )
 }

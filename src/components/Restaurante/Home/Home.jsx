@@ -7,7 +7,6 @@ import Select from 'react-select'
 
 const Home = () => {
     const restaurante = useSelector(state => state.restaurante)
-    const platillos = useSelector(state => state.platillos)
     const [loading, setLoading] = useState(true)
     const history = useHistory()
 
@@ -16,20 +15,36 @@ const Home = () => {
     }}
 
     const agregarPlatillos = () =>{{
-      history.push(`/restaurante/agregarplatillos`)
+      history.push(`/restaurante/categoriaplatillo`)
     }}
 
     const administrarPlatillos = () =>{{
       history.push(`/restaurante/administrarplatillos`)
     }}
 
+    const restauranteCompleto = () => {
+      return (
+        restaurante.nombre &&
+        restaurante.representante &&
+        restaurante.correo &&
+        restaurante.telefono &&
+        restaurante.direccion &&
+        restaurante.CategoriaRestaurantes.length>0 &&
+        restaurante.horario &&
+        restaurante.logo &&
+        restaurante.fachada &&
+        restaurante.cuentaBancaria &&
+        restaurante.alcance
+      );
+    }
+
+    console.log(restaurante.CategoriaRestaurantes)
 
     useEffect(() => {
       setTimeout(() => {
         setLoading(false)
       }, 1000);
     })
-
   return (
     loading ? <Loading /> :
     <div className={styles.container}>
@@ -42,7 +57,9 @@ const Home = () => {
       <label>Categorias:</label> 
       <Select isMulti value={restaurante.CategoriaRestaurantes} isDisabled
       />
-
+      {restaurante.CategoriaRestaurantes?.length == 0 && (
+        <label style={{ color: "red" }}>Necesitas agregar categorías</label>
+      )}
       <label>Horario:</label>
             <label>
             {restaurante.horario === null || restaurante.horario === "" ? (
@@ -84,11 +101,11 @@ const Home = () => {
             )}
           </label>     
 
-          <button onClick={actualizarDatos}>Configurar tus datos</button>
+          <button onClick={actualizarDatos} >Configurar tus datos</button>
 
-          <button onClick={agregarPlatillos}>Agregar Platillos</button>
+          <button onClick={agregarPlatillos} disabled={!restauranteCompleto()}>Agregar Platillos</button>
 
-          <button onClick={administrarPlatillos}>Administrar Platillos</button>
+          <button onClick={administrarPlatillos} disabled={!restauranteCompleto()}>Administrar Platillos</button>
       
 
     </div>

@@ -6,12 +6,12 @@ import { seleccionarCategoriaPlatillo } from '../../../actions';
 import axios from 'axios';
 import Select from 'react-select'
 
-import styles from "./Platillos.module.css"
+import styles from "./CategoriaPlatillos.module.css"
 import Loading from '../Loading/Loading'
 import { guardarRestaurante } from '../../../actions';
 
 
-const Platillos = () => {
+const CategoriaPlatillos = () => {
     const restaurante = useSelector(state => state.restaurante)
     const [loading, setLoading] = useState(true)
     const [platillos, setPlatillos] = useState({idRestaurante: restaurante.id})
@@ -28,7 +28,13 @@ const Platillos = () => {
         let json = await axios.post(
             `http://localhost:3001/categoriaPlatillo/agregar/`,
             platillos
-          )           
+          )
+
+          setPlatillos((prevPlatillos) => ({
+            ...prevPlatillos,
+            nombre: ""
+          }));         
+
         actualizar.CategoriaPlatillos.push(json.data)
         dispatch(guardarRestaurante(actualizar))
       }
@@ -70,6 +76,7 @@ const Platillos = () => {
             <input 
             type="text"
             name="nombre"
+            value={platillos.nombre}
             onChange={handleChange}
             />
         <button onClick={crearCategoriaPlatillo}>Crear Categoria</button> 
@@ -82,10 +89,10 @@ const Platillos = () => {
           />
 
         <label>Selecciona una categoría para crear un platillo</label>
-        <button onClick={CrearPlatillo}>Crear Platillo</button> 
+        <button onClick={CrearPlatillo} disabled={!categoriaSeleccionada}>Crear Platillo</button> 
 
     </div>
   )
 }
 
-export default Platillos
+export default CategoriaPlatillos

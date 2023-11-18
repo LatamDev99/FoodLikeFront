@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 
 import Loading from '../Loading/Loading';
-import styles from './Actualizar.module.css'
+import styles from './Configuracion.module.css'
 
 import { guardarRestaurante, traerCategorias } from '../../../actions';
 import Select from 'react-select'
 
-const Actualizar = () => {
+const Configuracion = () => {
     const restaurante = useSelector(state => state.restaurante)
     const categoria = useSelector(state => state.categoria)
     const [actualizar, setActualizar] = useState(restaurante)
@@ -17,17 +17,12 @@ const Actualizar = () => {
 
 
     const [profileImage, setProfileImage] = useState("")
-    const [imagePreview, setImagePreview] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
 
-
     const [profileImage2, setProfileImage2] = useState("")
-    const [imagePreview2, setImagePreview2] = useState(null)
     const [isLoading2, setIsLoading2] = useState(null)
 
-
     const upload_preset = "images"
-
  
     const history = useHistory()
     const dispatch = useDispatch()
@@ -46,13 +41,11 @@ const Actualizar = () => {
 
     const handleImageChangue = async(e) =>{
       setProfileImage(e.target.files[0])
-      setImagePreview(URL.createObjectURL(e.target.files[0]))
       setIsLoading(true)
     }
 
     const handleImageChangue2 = async(e) =>{
       setProfileImage2(e.target.files[0])
-      setImagePreview2(URL.createObjectURL(e.target.files[0]))
       setIsLoading2(true)
     }
 
@@ -63,7 +56,6 @@ const Actualizar = () => {
       });
     }
   
-
     const HomeSesion = () =>{
       history.push("/restaurante/")
     }
@@ -75,68 +67,36 @@ const Actualizar = () => {
       }, 1000);
     },[dispatch])
 
-    useEffect(() => {
-      const uploadImageToCloudinary = async () => {
-        if (profileImage && ( 
-          profileImage.type === "image/png" ||  
-          profileImage.type === "image/jpg" ||
-          profileImage.type === "image/jpeg"      
-        )) {
-          const image = new FormData();
-          image.append("file", profileImage);
-          image.append("upload_preset", upload_preset);
+    const subirImagenACloudinary = async (image, actualizarProp, setIsLoading) => {
+      if (image && (image.type === "image/png" || image.type === "image/jpg" || image.type === "image/jpeg")) {
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", upload_preset);
     
-          try {
-            const response = await axios.post("https://api.cloudinary.com/v1_1/dzhx3cwlp/image/upload", image);
-            
-            const imgData = response.data;
-            if (imgData.url) {
-              const imageURL = imgData.url.toString();
-              actualizar.logo = imageURL
-              setIsLoading(false);
-            } else {
-              console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
-            }
-          } catch (error) {
-            console.error('Error durante la carga de la imagen a Cloudinary:', error);
+        try {
+          const response = await axios.post("https://api.cloudinary.com/v1_1/dzhx3cwlp/image/upload", formData);
+          const imgData = response.data;
+    
+          if (imgData.url) {
+            const imageURL = imgData.url.toString();
+            actualizarProp(imageURL);
             setIsLoading(false);
+          } else {
+            console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
           }
+        } catch (error) {
+          console.error('Error durante la carga de la imagen a Cloudinary:', error);
+          setIsLoading(false);
         }
-      };
+      }
+    };
     
-      uploadImageToCloudinary();
+    useEffect(() => {
+      subirImagenACloudinary(profileImage, imageURL => actualizar.logo = imageURL, setIsLoading);
     }, [profileImage]);
-
+    
     useEffect(() => {
-      const uploadImageToCloudinary = async () => {
-        if (profileImage2 && ( 
-          profileImage2.type === "image/png" ||  
-          profileImage2.type === "image/jpg" ||
-          profileImage2.type === "image/jpeg"      
-        )) {
-          const image = new FormData();
-          image.append("file", profileImage2);
-          image.append("upload_preset", upload_preset);
-    
-          try {
-            const response = await axios.post("https://api.cloudinary.com/v1_1/dzhx3cwlp/image/upload", image);
-            
-            const imgData = response.data;
-            if (imgData.url) {
-              const imageURL = imgData.url.toString();
-              actualizar.fachada = imageURL
-              setIsLoading(false);
-            } else {
-              console.error('Error al obtener la URL de la imagen desde Cloudinary:', imgData);
-            }
-          } catch (error) {
-            console.error('Error durante la carga de la imagen a Cloudinary:', error);
-            setIsLoading(false);
-          }
-        }
-      };
-    
-      uploadImageToCloudinary();
+      subirImagenACloudinary(profileImage2, imageURL => actualizar.fachada = imageURL, setIsLoading);
     }, [profileImage2]);
 
   return (
@@ -148,12 +108,19 @@ const Actualizar = () => {
         <label>Correo: {restaurante.correo}</label>
         <label>Telefono: {restaurante.telefono}</label>
         <label>Dirección: {restaurante.direccion}</label>
-        <Select isMulti  options={categoria} value={actualizar.CategoriaRestaurantes} 
-          onChange={(item)=> setActualizar({
-          ...actualizar,
-          CategoriaRestaurantes: item
-          })}
+
+        <Select isMulti options={categoria} value={actualizar.CategoriaRestaurantes}
+            onChange={(selectedOptions) => {
+              if (selectedOptions.length <= 5) {
+                setActualizar({
+                  ...actualizar,
+                  CategoriaRestaurantes: selectedOptions
+                });
+              }
+            }}
           />
+
+
         <label>Horario:</label>
           <input 
             type="text"
@@ -222,4 +189,4 @@ const Actualizar = () => {
   )
 }
 
-export default Actualizar
+export default Configuracion
