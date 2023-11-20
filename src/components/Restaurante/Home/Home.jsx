@@ -2,43 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import Loading from '../Loading/Loading';
 import styles from './Home.module.css'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Select from 'react-select'
 
 const Home = () => {
     const restaurante = useSelector(state => state.restaurante)
     const [loading, setLoading] = useState(true)
-    const history = useHistory()
-
-    const actualizarDatos = () =>{{
-      history.push(`/restaurante/configuracion`)
-    }}
-
-    const agregarPlatillos = () =>{{
-      history.push(`/restaurante/categoriaplatillo`)
-    }}
-
-    const administrarPlatillos = () =>{{
-      history.push(`/restaurante/administrarplatillos`)
-    }}
-
-    const restauranteCompleto = () => {
-      return (
-        restaurante.nombre &&
-        restaurante.representante &&
-        restaurante.correo &&
-        restaurante.telefono &&
-        restaurante.direccion &&
-        restaurante.CategoriaRestaurantes.length>0 &&
-        restaurante.horario &&
-        restaurante.logo &&
-        restaurante.fachada &&
-        restaurante.cuentaBancaria &&
-        restaurante.alcance
-      );
-    }
-
-    console.log(restaurante.CategoriaRestaurantes)
 
     useEffect(() => {
       setTimeout(() => {
@@ -57,7 +25,7 @@ const Home = () => {
       <label>Categorias:</label> 
       <Select isMulti value={restaurante.CategoriaRestaurantes} isDisabled
       />
-      {restaurante.CategoriaRestaurantes?.length == 0 && (
+      {restaurante.CategoriaRestaurantes?.length === 0 && (
         <label style={{ color: "red" }}>Necesitas agregar categorías</label>
       )}
       <label>Horario:</label>
@@ -73,7 +41,7 @@ const Home = () => {
             {restaurante.logo === null || restaurante.logo === "" ? (
               <label style={{ color: "red" }}>Necesitas agregar tu logo</label>
             ) : (
-              <img src={restaurante.logo}></img>
+              <img src={restaurante.logo} alt=""></img>
             )}
           </label>
       <label>Fachada:</label>
@@ -81,7 +49,7 @@ const Home = () => {
             {restaurante.fachada === null || restaurante.fachada === "" ? (
               <label style={{ color: "red" }}>Necesitas agregar la foto de tu fachada</label>
             ) : (
-              <img src={restaurante.fachada}></img>
+              <img src={restaurante.fachada} alt=""></img>
             )}
           </label>
       <label>Cuenta Bancaria:</label>
@@ -101,14 +69,9 @@ const Home = () => {
             )}
           </label>     
 
-          <button onClick={actualizarDatos} >Configurar tus datos</button>
-
-          <button onClick={agregarPlatillos} disabled={!restauranteCompleto()}>Agregar Platillos</button>
-
-          <button onClick={administrarPlatillos} disabled={!restauranteCompleto()}>Administrar Platillos</button>
-      
-
     </div>
+    
+    
   )
 }
 

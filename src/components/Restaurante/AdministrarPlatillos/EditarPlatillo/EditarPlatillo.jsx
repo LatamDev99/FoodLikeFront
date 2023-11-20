@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import axios from "axios"
 import Loading from "../../Loading/Loading"
-import styles from "./Platillo.module.css"
+import styles from "./EditarPlatillo.module.css"
 
 
 const Platillo = () =>{
@@ -13,7 +13,7 @@ const Platillo = () =>{
     const platillo = useSelector(state => state.platilloEditar)
 
     const [profileImage, setProfileImage] = useState("")
-    const [imagePreview, setImagePreview] = useState(null)
+
     const [isLoading, setIsLoading] = useState(null)
 
     const upload_preset = "images"
@@ -29,7 +29,6 @@ const Platillo = () =>{
 
     const handleImageChangue = async(e) =>{
         setProfileImage(e.target.files[0])
-        setImagePreview(URL.createObjectURL(e.target.files[0]))
         setIsLoading(true)
       }
      

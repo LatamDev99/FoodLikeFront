@@ -1,0 +1,50 @@
+.footer {
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  position: fixed; 
+  font-size: 14px;
+  color: #dbcfcf;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  bottom: 0;
+  z-index: 9997;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.nombreBtn {
+  font-weight: bold;
+  font-size: 10px;
+  color: black;
+}
+
+.opaco {
+  opacity: 0.5; 
+}
+
+
+@media (max-width: 499px) {
+  .footer {
+    background-color: rgb(255, 255, 255);
+  }
+}

@@ -30,8 +30,8 @@ const CrearPlatillo = () =>{
       platillo
     )
 
-    if(json.data==true){
-        history.push("/restaurante/agregarplatillos")
+    if(json.data===true){
+        history.push("/restaurante/categoriaplatillo")
     }      
   }
 
@@ -41,13 +41,13 @@ const CrearPlatillo = () =>{
       platillo
     )
 
-    if(json.data==true){
+    if(json.data===true){
       history.push(`/restaurante/administrarplatillos`)
     }   
   }}
 
   const ButtonRegresa = () =>{
-      history.push("/restaurante/agregarplatillos")
+      history.push("/restaurante/categoriaplatillo")
   }   
 
   const handleChange = (e) => {

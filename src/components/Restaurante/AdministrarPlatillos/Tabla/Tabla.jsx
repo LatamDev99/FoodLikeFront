@@ -1,12 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { editarPlatillo, eliminarPlatillo, guardarPlatillos  } from '../../../../actions';
+import { useDispatch } from 'react-redux';
+import styles from './Tabla.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import { useState } from 'react';
 
+import { editarPlatillo } from '../../../../actions';
 
-const DataPlatillos = ({ data  }) => {
+const Tabla = ({ data  }) => {
 
   const [dataPlatillos, setDataPlatillos] = useState(data)
 
@@ -22,9 +23,6 @@ const DataPlatillos = ({ data  }) => {
           dispatch(editarPlatillo(platillo))
           history.push(`/restaurante/editarplatillo`) 
   }
-
-
-  
 
   const handleCategoria = async (e,  platilloId, categoriaSaliente ) => {
 
@@ -102,18 +100,17 @@ const DataPlatillos = ({ data  }) => {
       }
     };
     
-
     const eliminarCategoria = async (id) => {
       console.log(id)
     }
 
   return (
     
-    <div>
+    <div className={styles.container}>
     {dataPlatillos.map((categoria, index) => (
       <div key={index} style={{ marginBottom: '20px' }}>
         <h2>{categoria[0]?.nombre} <button onClick={()=> eliminarCategoria(categoria[0]?.id)}>Eliminar</button></h2>       
-        <table border="2">
+        <table table className={styles.adminTabla} border="2">
         {categoria[0].Platillos && categoria[0].Platillos.length > 0 ? (
           <thead>
             <tr>
@@ -153,8 +150,6 @@ const DataPlatillos = ({ data  }) => {
                       </option>
                   ))}
                 </select>
-
-
                   </td>
                   <td>
                     <button onClick={() => handleEliminarPlatillo(platillo)}>Eliminar</button>
@@ -174,5 +169,5 @@ const DataPlatillos = ({ data  }) => {
   );
 };
 
-export default DataPlatillos;
+export default Tabla;
 

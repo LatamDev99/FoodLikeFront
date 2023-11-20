@@ -55,10 +55,6 @@ const Configuracion = () => {
         [e.target.name]: e.target.value,
       });
     }
-  
-    const HomeSesion = () =>{
-      history.push("/restaurante/")
-    }
 
     useEffect(() => {
       dispatch(traerCategorias());         
@@ -120,7 +116,6 @@ const Configuracion = () => {
             }}
           />
 
-
         <label>Horario:</label>
           <input 
             type="text"
@@ -131,7 +126,7 @@ const Configuracion = () => {
           <label>Logo:</label> 
               <div>        
                   <p>                                   
-                    <p><img src={actualizar.logo}/></p>
+                    <p><img src={actualizar.logo} alt=""/></p>
                     <input type="file" accept='image/png, image/jpeg' name="logo" onChange={handleImageChangue}></input>
                   </p>
                 <p>
@@ -152,7 +147,7 @@ const Configuracion = () => {
                <label>Fachada:</label> 
               <div>        
                   <p>                                   
-                    <p><img src={actualizar.fachada}/></p>
+                    <p><img src={actualizar.fachada} alt=""/></p>
                     <input type="file" accept='image/png, image/jpeg' name="fachada" onChange={handleImageChangue2}></input>
                   </p>
                 <p>
@@ -183,8 +178,7 @@ const Configuracion = () => {
             value={actualizar.alcance}
             onChange={handleChange}
             />
-        <button onClick={actualizarDatos}>Actualizar</button>
-        <button onClick={HomeSesion}>Atrás</button>      
+        <button onClick={actualizarDatos}>Actualizar</button>  
       </div>
   )
 }
