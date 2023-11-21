@@ -21,7 +21,6 @@ const CategoriaPlatillos = () => {
    
     const crearCategoriaPlatillo = async () =>{
 
-
       if(platillos.nombre?.length>0){
         let json = await axios.post(
             `http://localhost:3001/categoriaPlatillo/agregar/`,
@@ -35,8 +34,7 @@ const CategoriaPlatillos = () => {
 
         actualizar.CategoriaPlatillos.push(json.data)
         dispatch(guardarRestaurante(actualizar))
-      }
-        
+      }       
     }
 
     const handleChange = (e) => {
@@ -60,7 +58,10 @@ const CategoriaPlatillos = () => {
 
     return (
     <div className={styles.container}>
-
+      <div className={styles.divh1}>
+        <h1 className={styles.h1}>Agregando una</h1>
+        <h1 className={styles.h1}>Categoría</h1>
+      </div>
         <button onClick={HomeSesion}>Regresar atrás</button>            
             Agrega una categoría de platillos:
             <input 

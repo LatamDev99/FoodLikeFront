@@ -12,7 +12,8 @@ import Footer from "./Footer/Footer";
 function HomeRestaurante() {
   return (
     <BrowserRouter>
-      <div style={{ paddingBottom: '60px', minHeight: '100vh', position: 'relative' }}>
+      <div style={{  minHeight: '100vh', position: 'relative' }}>
+      
         <Switch>
           <Route path="/restaurante/sesion" component={Sesion} />
           <Route path="/restaurante/registro" component={Registro} />
@@ -23,7 +24,9 @@ function HomeRestaurante() {
           <Route path="/restaurante/editarplatillo" component={EditarPlatillo} />
           <Route path="/restaurante" component={Home} />
         </Switch>
+       
         <Footer />
+
       </div>
     </BrowserRouter>
   );

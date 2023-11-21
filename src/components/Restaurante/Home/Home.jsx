@@ -16,8 +16,8 @@ const Home = () => {
   return (
     loading ? <Loading /> :
     <div className={styles.container}>
-      <h1>Bienvenido</h1>
-      <label>Nombre: {restaurante.nombre}</label>
+      <h1 className={styles.h1}>Bienvenido</h1>
+      <label className={styles.nombre}>{restaurante.nombre}</label>
       <label>Representante: {restaurante.representante}</label>
       <label>Correo: {restaurante.correo}</label>
       <label>Telefono: {restaurante.telefono}</label>

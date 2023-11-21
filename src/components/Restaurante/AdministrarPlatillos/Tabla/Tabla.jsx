@@ -1,26 +1,29 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Tabla.module.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import { useState } from 'react';
 
-import { editarPlatillo } from '../../../../actions';
+import { editarPlatillo, eliminarCategoriaPlatillo } from '../../../../actions';
+import { useEffect } from 'react';
 
 const Tabla = ({ data  }) => {
 
   const [dataPlatillos, setDataPlatillos] = useState(data)
+  const restaurante = useSelector(state=>state.restaurante)
 
   const cat  = dataPlatillos.flatMap((categoria) =>
   categoria.map(({ id, nombre }) => ({ id, nombre }))
   )  
+
   const [categoriasPlatillos, setCategoriasPlatillos] = useState(cat)
 
   const dispatch = useDispatch()
   const history = useHistory()
   
-  const handleSubmit = (platillo) => {        
-          dispatch(editarPlatillo(platillo))
+  const handleSubmit = (platillo, nombre) => {       
+          dispatch(editarPlatillo({platillo, nombre}))
           history.push(`/restaurante/editarplatillo`) 
   }
 
@@ -73,7 +76,6 @@ const Tabla = ({ data  }) => {
   const handleEliminarPlatillo = async (platillo) => {
       try {        
         const response = await axios.delete(`http://localhost:3001/platillo/eliminar/${platillo.id}`);
-
           if (response.status === 200) {
             const idPlatilloAEliminar = platillo.id.toString();
           
@@ -101,72 +103,125 @@ const Tabla = ({ data  }) => {
     };
     
     const eliminarCategoria = async (id) => {
-      console.log(id)
-    }
-
-  return (
+      dispatch(eliminarCategoriaPlatillo(id, restaurante));
     
-    <div className={styles.container}>
-    {dataPlatillos.map((categoria, index) => (
-      <div key={index} style={{ marginBottom: '20px' }}>
-        <h2>{categoria[0]?.nombre} <button onClick={()=> eliminarCategoria(categoria[0]?.id)}>Eliminar</button></h2>       
-        <table table className={styles.adminTabla} border="2">
-        {categoria[0].Platillos && categoria[0].Platillos.length > 0 ? (
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Precio</th>
-              <th>Foto</th>
-              <th>Promo</th>
-              <th>Stock</th>
-              <th>Activo</th>
-              <th>Configuración</th>
-              <th>Cambiar</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-        ):""}
-          <tbody>
-            {categoria[0].Platillos && categoria[0].Platillos.length > 0 ? (
-              categoria[0].Platillos?.map((platillo, platilloIndex) => (
-                <tr key={platilloIndex}>
-                  <td>{platillo.nombre}</td>
-                  <td>{platillo.descripcion}</td>
-                  <td>{platillo.precio}</td>
-                  <td><img src={platillo.foto} alt="" /></td>
-                  <td>{platillo.promo}</td>
-                  <td>{platillo.stock}</td>
-                  <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
-                  <td>
-                    <button onClick={() => handleSubmit(platillo)}>Editar</button>
-                  </td>
-                  <td>      
-      
-                  <select value={`${index}-${platillo.id}`} onChange={(e) => handleCategoria(e, platillo.id, categoria[0].id)}>
-                  {categoriasPlatillos?.map((categoriaItem, itemIndex) => (
-                      <option key={categoriaItem.id} value={`${itemIndex}-${platillo.id}`}>
-                          {categoriaItem.nombre}
-                      </option>
-                  ))}
-                </select>
-                  </td>
-                  <td>
-                    <button onClick={() => handleEliminarPlatillo(platillo)}>Eliminar</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="10">No hay platillos disponibles</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      try {
+        const response = await axios.delete(`http://localhost:3001/categoriaplatillo/borrarcategoria/${id}`);
+        if (response.data === true) {
+          setDataPlatillos((prevData) =>
+            prevData
+              .map((subArray) =>
+                subArray.filter((categoriaPlatillo) => categoriaPlatillo.id !== id)
+              )
+              // Filtrar categorías vacías
+              .filter((subArray) => subArray.length > 0)
+          );
+          // Actualizar el estado de categorías mostradas
+          setCategoriasPlatillos((prevCategorias) =>
+            prevCategorias.filter((categoria) => categoria.id !== id)
+          );
+        }
+      } catch (error) {
+        console.error('Error al eliminar la categoría:', error);
+      }
+    };
+    
+    
+    useEffect(() => {
+      const actualizarCategorias = dataPlatillos.flatMap((categoria) =>
+        categoria.map(({ id, nombre }) => ({ id, nombre }))
+      );
+      setCategoriasPlatillos(actualizarCategorias);
+    }, [dataPlatillos]);
+
+  return (    
+      <div className={styles.container}>
+        {dataPlatillos.map((categoria, index) => (
+          <div key={index} style={{ marginBottom: '20px' }}>
+            <h2>
+              {categoria[0]?.nombre}{' '}
+              <button onClick={() => eliminarCategoria(categoria[0]?.id)}>
+                Eliminar
+              </button>
+            </h2>
+            <table table className={styles.adminTabla} border="2">
+              {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                    <th>Promo</th>
+                    <th>Stock</th>
+                    <th>Activo</th>
+                    <th>Configuración</th>
+                    <th>Cambiar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+              ) : (
+                ''
+              )}
+              <tbody>
+                {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
+                  categoria[0]?.Platillos?.map((platillo, platilloIndex) => (
+                    <tr key={platilloIndex}>
+                      <td>{platillo.nombre}</td>
+                      <td>{platillo.descripcion}</td>
+                      <td>{platillo.precio}</td>
+                      <td>
+                        <img src={platillo.foto} alt="" />
+                      </td>
+                      <td>{platillo.promo}</td>
+                      <td>{platillo.stock}</td>
+                      <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
+                      <td>
+                        <button
+                          onClick={() =>
+                            handleSubmit(platillo, categoria[0]?.nombre)
+                          }
+                        >
+                          Editar
+                        </button>
+                      </td>
+                      <td>
+                        <select
+                          value={`${index}-${platillo.id}`}
+                          onChange={(e) =>
+                            handleCategoria(e, platillo.id, categoria[0]?.id)
+                          }
+                        >
+                          {categoriasPlatillos?.map((categoriaItem, itemIndex) => (
+                            <option
+                              key={categoriaItem.id}
+                              value={`${itemIndex}-${platillo.id}`}
+                            >
+                              {categoriaItem.nombre}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <button onClick={() => handleEliminarPlatillo(platillo)}>
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="10">No hay platillos disponibles</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-  );
+      );
+
+
 };
 
 export default Tabla;

@@ -8,11 +8,13 @@ import HomeRestaurante from './components/Restaurante/Home';
 function App() {
   return (
    <BrowserRouter>
+    <div id="app-container"></div>
     <Switch>
     <Route exact path="/" component={Branch} />
     <Route path="/cliente" component={HomeCliente}/>
     <Route path="/restaurante" component={HomeRestaurante}/>
     </Switch>  
+    <div/>
    </BrowserRouter>
   );
 }

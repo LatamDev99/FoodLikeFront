@@ -7,7 +7,7 @@ import styles from './AdministrarPlatillos.module.css'
 
 import Loading from "../Loading/Loading";
 import Tabla from "./Tabla/Tabla";
-import { guardarPlatillos } from "../../../actions";
+import { eliminarCategoriaPlatillo, guardarPlatillos } from "../../../actions";
 
 
 const AdministrarPlatillos = () =>{
@@ -40,6 +40,9 @@ const AdministrarPlatillos = () =>{
     return (
         loading ? <Loading /> :
         <div className={styles.container}>
+          <div>
+          <h1 className={styles.h1}>Administrar platillos</h1>
+          </div>
             <Tabla data={data}/>
         </div>
     )

@@ -7,8 +7,17 @@
     flex-direction: column; 
     justify-content: center;
     align-items: center;
+    text-align: center;
+    margin-bottom: 80px;
 }
 
 button{
     width: 150px;
+}
+
+.h1{    
+    margin-bottom: 50px;
+    color: white;
+    border: #FF6B00;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }

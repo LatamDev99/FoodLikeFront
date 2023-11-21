@@ -16,13 +16,6 @@ const CrearPlatillo = () =>{
 
   const upload_preset = "images"
   const history = useHistory()
-
-
-  const handleImageChangue = async(e) =>{
-    setProfileImage(e.target.files[0])
-    setImagePreview(URL.createObjectURL(e.target.files[0]))
-    setIsLoading(true)
-  }
  
   const agregarPlatillo = async() =>{
     let json = await axios.post(
@@ -66,7 +59,13 @@ const CrearPlatillo = () =>{
       platillo.foto &&
       platillo.stock
     );
-  };
+  };  
+
+  const handleImageChangue = async(e) =>{
+    setProfileImage(e.target.files[0])
+    setImagePreview(URL.createObjectURL(e.target.files[0]))
+    setIsLoading(true)
+  }
   
   useEffect(() => {
     const uploadImageToCloudinary = async () => {

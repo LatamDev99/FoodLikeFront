@@ -13,13 +13,13 @@ const Configuracion = () => {
     const restaurante = useSelector(state => state.restaurante)
     const categoria = useSelector(state => state.categoria)
     const [actualizar, setActualizar] = useState(restaurante)
-    const [loading, setLoading] = useState(true)
-
 
     const [profileImage, setProfileImage] = useState("")
+    const [imagePreview, setImagePreview] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
 
     const [profileImage2, setProfileImage2] = useState("")
+    const [imagePreview2, setImagePreview2] = useState(null)
     const [isLoading2, setIsLoading2] = useState(null)
 
     const upload_preset = "images"
@@ -56,15 +56,12 @@ const Configuracion = () => {
       });
     }
 
-    useEffect(() => {
-      dispatch(traerCategorias());         
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000);
-    },[dispatch])
+    const subirImagenACloudinary = async (image, actualizarProp, setIsLoading, preview) => {
 
-    const subirImagenACloudinary = async (image, actualizarProp, setIsLoading) => {
       if (image && (image.type === "image/png" || image.type === "image/jpg" || image.type === "image/jpeg")) {
+
+        preview(URL.createObjectURL(image));
+
         const formData = new FormData();
         formData.append("file", image);
         formData.append("upload_preset", upload_preset);
@@ -88,17 +85,21 @@ const Configuracion = () => {
     };
     
     useEffect(() => {
-      subirImagenACloudinary(profileImage, imageURL => actualizar.logo = imageURL, setIsLoading);
+      subirImagenACloudinary(profileImage, imageURL => actualizar.logo = imageURL, setIsLoading, setImagePreview);
     }, [profileImage]);
     
     useEffect(() => {
-      subirImagenACloudinary(profileImage2, imageURL => actualizar.fachada = imageURL, setIsLoading);
+      subirImagenACloudinary(profileImage2, imageURL => actualizar.fachada = imageURL, setIsLoading, setImagePreview2);
     }, [profileImage2]);
+   
+    useEffect(() => {
+      dispatch(traerCategorias());         
+    },[dispatch])
 
   return (
-    loading ? <Loading /> :
+
     <div className={styles.container}>
-        <h1>Bienvenido</h1>
+        <h1 className={styles.h1}>Configuración</h1>
         <label>Nombre: {restaurante.nombre}</label>
         <label>Representante: {restaurante.representante}</label>
         <label>Correo: {restaurante.correo}</label>
@@ -126,7 +127,7 @@ const Configuracion = () => {
           <label>Logo:</label> 
               <div>        
                   <p>                                   
-                    <p><img src={actualizar.logo} alt=""/></p>
+                    <p><img src={imagePreview} alt=""/></p>
                     <input type="file" accept='image/png, image/jpeg' name="logo" onChange={handleImageChangue}></input>
                   </p>
                 <p>
@@ -147,7 +148,7 @@ const Configuracion = () => {
                <label>Fachada:</label> 
               <div>        
                   <p>                                   
-                    <p><img src={actualizar.fachada} alt=""/></p>
+                    <p><img src={imagePreview2} alt=""/></p>
                     <input type="file" accept='image/png, image/jpeg' name="fachada" onChange={handleImageChangue2}></input>
                   </p>
                 <p>

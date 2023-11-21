@@ -10,7 +10,9 @@ const Platillo = () =>{
     
     const [loading, setLoading] = useState(true)
 
-    const platillo = useSelector(state => state.platilloEditar)
+    const pl = useSelector(state => state.platilloEditar)
+
+    const {platillo, nombre} = pl
 
     const [profileImage, setProfileImage] = useState("")
 
@@ -21,8 +23,6 @@ const Platillo = () =>{
     const [plat, setPlat ] = useState(platillo)
     const history = useHistory()
 
-    const {CategoriaPlatillo} = platillo    
-
     const administrarPlatillos = () =>{
         history.push(`/restaurante/administrarplatillos`)
     }
@@ -31,6 +31,7 @@ const Platillo = () =>{
         setProfileImage(e.target.files[0])
         setIsLoading(true)
       }
+
      
     const handleChange = (e) =>{
         setPlat({
@@ -101,8 +102,6 @@ const Platillo = () =>{
         <div className={styles.container}>
 
             <button onClick={administrarPlatillos}>Atrás</button>
-
-            <h2>Categoría  {CategoriaPlatillo?.nombre}</h2>
             <div>          
                 <label>Nombre: </label>
                 <input 
