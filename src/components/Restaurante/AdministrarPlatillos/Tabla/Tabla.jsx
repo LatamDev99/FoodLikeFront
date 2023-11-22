@@ -5,19 +5,21 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import { useState } from 'react';
 
-import { editarPlatillo, eliminarCategoriaPlatillo } from '../../../../actions';
+import { editarPlatillo, eliminarCategoriaPlatillo, guardarRestaurante } from '../../../../actions';
 import { useEffect } from 'react';
 
-const Tabla = ({ data  }) => {
+const Tabla = () => {
 
-  const [dataPlatillos, setDataPlatillos] = useState(data)
+  const [dataPlatillos, setDataPlatillos] = useState([])
   const restaurante = useSelector(state=>state.restaurante)
 
-  const cat  = dataPlatillos.flatMap((categoria) =>
-  categoria.map(({ id, nombre }) => ({ id, nombre }))
+  const cat  = dataPlatillos?.flatMap((categoria) =>
+  categoria?.map(({ id, nombre }) => ({ id, nombre }))
   )  
 
   const [categoriasPlatillos, setCategoriasPlatillos] = useState(cat)
+  const [nuevaCategoria, setNuevaCategoria] = useState('');
+  const [nuevaCategoriaPush, setNuevaCategoriaPush] = useState('');
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -26,6 +28,14 @@ const Tabla = ({ data  }) => {
           dispatch(editarPlatillo({platillo, nombre}))
           history.push(`/restaurante/editarplatillo`) 
   }
+
+  const handleChange = (event) => {
+    setNuevaCategoria(event.target.value);
+  };
+
+  const handleChangeNuevaCategoria = (event) => {
+    setNuevaCategoriaPush(event.target.value);
+  };
 
   const handleCategoria = async (e,  platilloId, categoriaSaliente ) => {
 
@@ -42,7 +52,6 @@ const Tabla = ({ data  }) => {
 
       if(response.status===200){
         const newDataPlatillos = moverPlatilloACategoria(dataPlatillos, platilloId,categoriaSeleccionadaId);
-
         setDataPlatillos(newDataPlatillos);
       }
   };
@@ -100,32 +109,84 @@ const Tabla = ({ data  }) => {
       } catch (error) {
         console.error('Error al eliminar el platillo:', error);
       }
-    };
-    
+    }; 
+
     const eliminarCategoria = async (id) => {
-      dispatch(eliminarCategoriaPlatillo(id, restaurante));
     
       try {
         const response = await axios.delete(`http://localhost:3001/categoriaplatillo/borrarcategoria/${id}`);
-        if (response.data === true) {
+        if (response.status === 200) {
           setDataPlatillos((prevData) =>
             prevData
               .map((subArray) =>
                 subArray.filter((categoriaPlatillo) => categoriaPlatillo.id !== id)
               )
-              // Filtrar categorías vacías
               .filter((subArray) => subArray.length > 0)
           );
-          // Actualizar el estado de categorías mostradas
           setCategoriasPlatillos((prevCategorias) =>
             prevCategorias.filter((categoria) => categoria.id !== id)
           );
+          dispatch(eliminarCategoriaPlatillo(id, restaurante));
         }
       } catch (error) {
         console.error('Error al eliminar la categoría:', error);
       }
-    };
-    
+    }; 
+
+    const editarCategoria = async(id) =>{
+
+      let categoria = {
+        idCategoria : id,
+        nuevoNombre: nuevaCategoria
+      }
+      let json = await axios.patch(
+        `http://localhost:3001/categoriaplatillo/cambiarnombrecategoria`,
+        categoria
+      )
+
+      if(json.status ===200){
+        actualizarNombreCategoria(id, nuevaCategoria);
+         setNuevaCategoria("")
+      }  
+    }
+
+    const actualizarNombreCategoria = (idCategoria, nuevoNombre) => {
+      const newDataPlatillos = dataPlatillos.map((categorias) => {
+        return categorias.map((categoria) => {
+          if (categoria.id === idCategoria) {
+            return {
+              ...categoria,
+              nombre: nuevoNombre,
+              value: nuevoNombre,
+              label: nuevoNombre,
+            };
+          }
+          return categoria;
+        });
+      });  
+      setDataPlatillos(newDataPlatillos);
+    };  
+
+    const agregarCategoria = async() =>{
+      let objCategoria = {
+          nombre: nuevaCategoriaPush,
+          idRestaurante :  restaurante.id
+      }
+      let json = await axios.post(
+        `http://localhost:3001/categoriaPlatillo/agregar/`,
+        objCategoria
+      ) 
+      restaurante.CategoriaPlatillos.push(json.data)
+      dispatch(guardarRestaurante(restaurante))
+
+
+        let obj ={
+          id : restaurante.id
+        }  
+        let json2 = await axios.post(`http://localhost:3001/categoriaplatillo/traercategoriarestaurante`,obj) 
+        setDataPlatillos(json2.data)   
+        setNuevaCategoriaPush('')     
+    }
     
     useEffect(() => {
       const actualizarCategorias = dataPlatillos.flatMap((categoria) =>
@@ -134,16 +195,50 @@ const Tabla = ({ data  }) => {
       setCategoriasPlatillos(actualizarCategorias);
     }, [dataPlatillos]);
 
+    const fetchData = async () => {
+      try {
+        let obj = { id: restaurante.id };
+        let response = await axios.post(`http://localhost:3001/categoriaplatillo/traercategoriarestaurante`, obj);
+        setDataPlatillos(response.data);       
+      } catch (error) {
+        console.error('Error al obtener datos de la API:', error);
+      }
+    };
+    useEffect(() => {      
+      fetchData(); 
+    }, [  ]);
+
+
   return (    
       <div className={styles.container}>
+        <div>
+          <label>Agregar Categoría</label>
+          <input
+          type="text"
+          value={nuevaCategoriaPush}
+          onChange={handleChangeNuevaCategoria}
+          placeholder="Nuevo nombre de categoría"></input>
+          <button onClick={() => agregarCategoria()}>Agregar</button>
+        </div>
+        
         {dataPlatillos.map((categoria, index) => (
           <div key={index} style={{ marginBottom: '20px' }}>
-            <h2>
-              {categoria[0]?.nombre}{' '}
-              <button onClick={() => eliminarCategoria(categoria[0]?.id)}>
-                Eliminar
-              </button>
-            </h2>
+            <h3>
+            <h2>{categoria[0]?.nombre}</h2>
+              <label>{' '}
+                <button onClick={() => eliminarCategoria(categoria[0]?.id)}>Eliminar</button>
+              </label>   
+               <label>
+               <input
+                    type="text"
+                    value={nuevaCategoria}
+                    onChange={handleChange}
+                    placeholder="Nuevo nombre de categoría"
+                />
+                  {' '}Editar 
+                  <button onClick={() => editarCategoria(categoria[0]?.id)}>Editar</button>
+              </label>       
+            </h3>
             <table table className={styles.adminTabla} border="2">
               {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
                 <thead>

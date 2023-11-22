@@ -14,7 +14,6 @@ const AdministrarPlatillos = () =>{
     const restaurante = useSelector(state => state.restaurante)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
-
     const dispatch = useDispatch()
 
     const {CategoriaPlatillos} = restaurante
@@ -41,9 +40,9 @@ const AdministrarPlatillos = () =>{
         loading ? <Loading /> :
         <div className={styles.container}>
           <div>
-          <h1 className={styles.h1}>Administrar platillos</h1>
-          </div>
-            <Tabla data={data}/>
+          <h1 className={styles.h1}>Administrar platillos</h1>     
+          <Tabla data={data}/>
+        </div>
         </div>
     )
 }

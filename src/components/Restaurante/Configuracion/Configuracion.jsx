@@ -11,6 +11,7 @@ import Select from 'react-select'
 
 const Configuracion = () => {
     const restaurante = useSelector(state => state.restaurante)
+
     const categoria = useSelector(state => state.categoria)
     const [actualizar, setActualizar] = useState(restaurante)
 
@@ -126,8 +127,8 @@ const Configuracion = () => {
             />
           <label>Logo:</label> 
               <div>        
-                  <p>                                   
-                    <p><img src={imagePreview} alt=""/></p>
+                  <p>                                 
+                    <p><img src={imagePreview !== null ? imagePreview : restaurante.logo} alt="" /></p>
                     <input type="file" accept='image/png, image/jpeg' name="logo" onChange={handleImageChangue}></input>
                   </p>
                 <p>
@@ -148,7 +149,7 @@ const Configuracion = () => {
                <label>Fachada:</label> 
               <div>        
                   <p>                                   
-                    <p><img src={imagePreview2} alt=""/></p>
+                    <p><img src={imagePreview2 !== null ? imagePreview2 : restaurante.fachada} alt="" /></p>
                     <input type="file" accept='image/png, image/jpeg' name="fachada" onChange={handleImageChangue2}></input>
                   </p>
                 <p>
@@ -180,6 +181,7 @@ const Configuracion = () => {
             onChange={handleChange}
             />
         <button onClick={actualizarDatos}>Actualizar</button>  
+        
       </div>
   )
 }

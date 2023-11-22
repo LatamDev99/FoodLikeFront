@@ -13,6 +13,7 @@ const Home = () => {
         setLoading(false)
       }, 1000);
     })
+    
   return (
     loading ? <Loading /> :
     <div className={styles.container}>

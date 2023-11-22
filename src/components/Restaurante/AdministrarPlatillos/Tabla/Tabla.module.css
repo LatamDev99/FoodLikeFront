@@ -1,17 +1,26 @@
 .container {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative; 
+  overflow: auto;
+}
+
+.containerTabla {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: auto;
 }
 
 .adminTabla {
   position: relative; 
-  z-index: 1;
+  z-index: 123;
 }
 
 .adminTabla table {
@@ -69,7 +78,7 @@
   }
   
   .adminTabla {
-    width: calc(50% - 20px); /* Ajusta el ancho según tus necesidades */
+    width: calc(50% - 20px); 
     margin: 0 10px 20px 10px;
   }
   
@@ -99,5 +108,6 @@
     border: none;
     padding: 8px 12px;
     cursor: pointer;
+    font-size: 1.3vh;
   }
 }

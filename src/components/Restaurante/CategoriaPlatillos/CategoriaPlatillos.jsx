@@ -42,7 +42,6 @@ const CategoriaPlatillos = () => {
           ...platillos,
           [e.target.name]: e.target.value,
      });
-
       }
 
     const HomeSesion = () =>{

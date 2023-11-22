@@ -1,7 +1,7 @@
 .footer {
   background-color: rgb(255, 255, 255);
   text-align: center;
-  position: fixed; 
+   
   font-size: 14px;
   color: #dbcfcf;
   width: 100vw;
@@ -9,8 +9,9 @@
   flex-direction: column;
   justify-content: space-between;
   bottom: 0;
+  position: fixed;
   z-index: 9997;
-}
+} 
 
 .btns {
   display: flex;
@@ -34,7 +35,7 @@
 
 .nombreBtn {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 15px;
   color: black;
 }
 
