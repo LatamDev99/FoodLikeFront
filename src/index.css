@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Establece la altura mínima de la ventana gráfica */
+}
+
+#app {
+  flex: 1; /* Esto permite que #app ocupe todo el espacio restante */
+  overflow-y: auto; /* Agrega scroll vertical si el contenido excede la altura */
+}

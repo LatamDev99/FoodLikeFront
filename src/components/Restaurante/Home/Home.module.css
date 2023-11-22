@@ -1,10 +1,16 @@
 .container{
     background: linear-gradient(to bottom, #ffffff, #FF6B00);
     width: 100%;
-    height: 100%;
     min-height: 580px;
     display: flex;
     flex-direction: column; 
     justify-content: center;
     align-items: center;
+    padding-bottom: 120px;
+}
+
+.h1{
+    color: white;
+    border: #FF6B00;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }

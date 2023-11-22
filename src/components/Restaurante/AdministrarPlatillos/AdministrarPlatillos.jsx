@@ -1,21 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
-import styles from './AdministrarPlatillos.module.css'
-import Loading from "../Loading/Loading";
+
 import { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from "axios";
-import DataPlatillos from "./Tabla/Tabla";
-import { eliminarPlatillo, guardarPlatillos } from "../../../actions";
+
+import styles from './AdministrarPlatillos.module.css'
+
+import Loading from "../Loading/Loading";
+import Tabla from "./Tabla/Tabla";
+import { eliminarCategoriaPlatillo, guardarPlatillos } from "../../../actions";
 
 
 const AdministrarPlatillos = () =>{
     const restaurante = useSelector(state => state.restaurante)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
-
     const dispatch = useDispatch()
-    const history = useHistory()
-
 
     const {CategoriaPlatillos} = restaurante
 
@@ -29,10 +28,6 @@ const AdministrarPlatillos = () =>{
           setData(response.data);
           dispatch(guardarPlatillos(response.data)) 
     }
-    
-    const HomeSesion = () =>{
-        history.push("/restaurante/")
-    }
 
     useEffect(() => {
         fetchData()
@@ -44,11 +39,12 @@ const AdministrarPlatillos = () =>{
     return (
         loading ? <Loading /> :
         <div className={styles.container}>
-            <button onClick={HomeSesion}>Atrás</button>
-            <DataPlatillos data={data}/>
+          <div>
+          <h1 className={styles.h1}>Administrar platillos</h1>     
+          <Tabla data={data}/>
+        </div>
         </div>
     )
-
 }
 
 export default AdministrarPlatillos;

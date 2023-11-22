@@ -7,13 +7,12 @@
     flex-direction: column; 
     justify-content: center;
     align-items: center;
+    padding-bottom: 180px;
 }
-
 
 .profilephoto{
     width: 1px;  
 }
-
 img{
     width: 200px;
 }

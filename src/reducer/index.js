@@ -48,7 +48,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         categoriaPlatillo: action.payload,
-      }     
+      }   
+      
+      case "ELIMINAR_CATEGORIA_PLATILLO":
+
+      const restauranteActualizado = {
+        ...action.payload2,
+        CategoriaPlatillos: action.payload2.CategoriaPlatillos.filter(
+          (categoriaPlatillo) => categoriaPlatillo.id !== action.payload
+        )
+      };
+
+      return {
+        ...state,
+         restaurante: restauranteActualizado
+      }  
+      
+      
+
+
 
       case "GUARDAR_NUEVO_USUARIO":
       return {
