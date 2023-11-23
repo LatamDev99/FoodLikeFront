@@ -9,27 +9,11 @@
   padding-bottom: 70px;
 }
 
-.containerTabla {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  overflow: auto;
-}
-
-.adminTabla {
-  position: relative; 
-  z-index: 123;
-  background-color: rgba(255, 255, 255, 0.853);
-  padding: 0.45vw
-}
-
 .adminTabla table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  
 }
 
 .adminTabla th, .adminTabla td {
@@ -40,6 +24,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border-radius: 5px;
 }
 
 .adminTabla th {
@@ -62,6 +47,89 @@
   width: 6.5em;
   border-radius: 33px 33px 0px 33px;
 }
+
+.selectCambiar{
+  padding: '8px';
+  border: '1px solid #ccc';
+  border-radius: '4px';
+  box-sizing: 'border-box';
+  background-color: '#fff';
+  width: 100%;
+  color: rgb(193, 32, 18);
+  outline: 'none';
+  text-align: center;
+}
+
+.adminTabla {
+  position: relative; 
+  z-index: 123;
+  background-color: rgba(255, 255, 255, 0.853);
+  padding: 0.45vw;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out; 
+}
+
+.adminTablaContainer {
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out; 
+}
+
+.mostrarOcultarBtn {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 8px 12px;
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  width: 66px;
+}
+
+.mostrarOcultarBtn.open {
+  background-color: rgb(131, 110, 110);
+  color: #faf5f5;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.mostrarOcultarBtn.closed {
+  background-color: #ffffff;
+  color: #000000; 
+  transition: background-color 0.5s ease-in-out;
+}
+
+
+.adminTablaContainer.tablaOpen {
+  transition: max-height s ease-in-out; /* Ajusta el tiempo de transición */
+  transform-origin: top;
+  transition: background-color 5s ease-in-out;
+}
+
+.adminTablaContainer.tablaClosed {
+
+  transition: background-color 5s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 1000px) {
   .adminTabla th, .adminTabla td {
@@ -94,7 +162,6 @@
   .adminTabla table {
     width: 100%;
     border-collapse: collapse;
-    
   }
   
   .adminTabla th,
@@ -102,10 +169,13 @@
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    
+
   }
   
   .adminTabla th {
     background-color: #f2f2f2;
+    
   }
   
   .adminTabla tr:hover {
@@ -121,3 +191,4 @@
     font-size: 1.3vh;
   }
 }
+

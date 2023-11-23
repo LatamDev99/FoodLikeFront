@@ -13,10 +13,6 @@ const Tabla = () => {
   const [dataPlatillos, setDataPlatillos] = useState([])
   const restaurante = useSelector(state=>state.restaurante)
 
-  const [nuevaCategoriaArray, setNuevaCategoriaArray] = useState(
-    Array(dataPlatillos.length).fill('')
-  );
-
   const cat  = dataPlatillos?.flatMap((categoria) =>
                     categoria?.map(({ id, nombre }) => ({ id, nombre }))
   )  
@@ -234,7 +230,7 @@ const Tabla = () => {
 }
 
 return (    
-    <div className={styles.container}>
+    <div>
         <div>
           <label>Agregar Categoría</label>
           <input
@@ -246,112 +242,119 @@ return (
         </div>       
 
       <div className={styles.container}>
-            {dataPlatillos.map((categoria, index) => (
-              <div key={index} style={{ marginBottom: '20px' }}>
-                <h3>
-                  <h2>{categoria[0]?.nombre}</h2>
-                  <label>
-                    <button onClick={() => eliminarCategoria(categoria[0]?.id)}>
-                      Eliminar
-                    </button>
-                  </label>
-                  <label>
-                    <input
-                      type="text"
-                      value={nuevaCategoriaArray[index]}
-                      onChange={handleChange}
-                      placeholder="Nuevo nombre de categoría"
-                    />
-                    {' '}
-                    Editar
-                    <button onClick={() => editarCategoria(categoria[0]?.id)} 
-                            disabled={!nuevaCategoria.trim()}>
-                      Editar
-                    </button>
-                    <button onClick={() => mostrarItemsDeLaCategoria(categoria[0]?.id)}>
-                      {mostrarTablaPorCategoria[categoria[0]?.id] ? '↓' : '↑'}
-                    </button>
-                  </label>
-                </h3>
+                  {dataPlatillos.map((categoria, index) => (
+                    <div key={index} style={{ marginBottom: '20px' }}>
+                      <h3>
+                        <h2>{categoria[0]?.nombre}</h2>
+                        <label>
+                          <button onClick={() => eliminarCategoria(categoria[0]?.id)}>
+                            Eliminar
+                          </button>
+                        </label>
+                        <label>
+                          <input
+                            type="text"
+                            value={nuevaCategoria}
+                            onChange={handleChange}
+                            placeholder="Nuevo nombre de categoría"
+                          />
+                          {' '}
+                          Editar
+                          <button onClick={() => editarCategoria(categoria[0]?.id)} 
+                                  disabled={!nuevaCategoria.trim()}>
+                            Editar
+                          </button>
+                          <button onClick={() => mostrarItemsDeLaCategoria(categoria[0]?.id)}
 
-                {mostrarTablaPorCategoria[categoria[0]?.id] && (
-                  <table className={styles.adminTabla} border="2">
+                  className={`${styles.mostrarOcultarBtn} ${mostrarTablaPorCategoria[categoria[0]?.id] ? styles.open : styles.closed}`}
 
-                    {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Descripción</th>
-                          <th>Precio</th>
-                          <th>Foto</th>
-                          <th>Promo</th>
-                          <th>Stock</th>
-                          <th>Activo</th>
-                          <th>Configuración</th>
-                          <th>Cambiar</th>
-                          <th>Eliminar</th>
-                        </tr>
-                      </thead>
-                    ) : (
-                      ''
-                    )}
-                    <tbody>
-                    {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
-                        categoria[0]?.Platillos?.map((platillo, platilloIndex) => (
-                          <tr key={platilloIndex}>
-                            <td>{platillo.nombre}</td>
-                            <td>{platillo.descripcion}</td>
-                            <td>{platillo.precio}</td>
-                            <td>
-                              <img src={platillo.foto} alt="" />
-                            </td>
-                            <td>{platillo.promo}</td>
-                            <td>{platillo.stock}</td>
-                            <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
-                            <td>
-                              <button
-                                onClick={() =>
-                                  handleSubmit(platillo, categoria[0]?.nombre)
-                                }
-                              >
-                                Editar
-                              </button>
-                            </td>
-                            <td>
-                              <select
-                                value={`${index}-${platillo.id}`}
-                                onChange={(e) =>
-                                  cambiarCategoria(e, platillo.id, categoria[0]?.id)
-                                }
-                              >
-                                {categoriasPlatillos?.map((categoriaItem, itemIndex) => (
-                                  <option
-                                    key={categoriaItem.id}
-                                    value={`${itemIndex}-${platillo.id}`}
-                                  >
-                                    {categoriaItem.nombre}
-                                  </option>
-                                ))}
-                              </select>
-                            </td>
-                            <td>
-                              <button onClick={() => handleEliminarPlatillo(platillo)}>
-                                Eliminar
-                              </button>
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <div>
-                        <label>No tienes platillos, pero puedes crear o traer uno =) </label>
-                        <button className={styles.btnCrearPlatillo} onClick={ ()=>moverACrearPlatillo(categoria[0])}>Crear</button>
-                        </div>
+                          >
+                            {mostrarTablaPorCategoria[categoria[0]?.id] ? '↓' : '↑'}
+                          </button>
+                        </label>
+                      </h3>
+                      <div className={`${styles.adminTablaContainer} ${mostrarTablaPorCategoria[categoria[0]?.id] ? styles.tablaOpen : styles.tablaClosed}`}>
+                        
+                      {mostrarTablaPorCategoria[categoria[0]?.id] && (
+                        <table className={styles.adminTabla} border="0">
+
+                          {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Foto</th>
+                                <th>Precio</th>
+                                <th>Promo</th>
+                                <th>Stock</th>
+                                <th>Activo</th>
+                                <th>Configuración</th>
+                                <th>Cambiar</th>
+                                <th>Eliminar</th>
+                              </tr>
+                            </thead>
+                          ) : (
+                            ''
+                          )}
+                          <tbody>
+                          {categoria[0]?.Platillos && categoria[0]?.Platillos?.length > 0 ? (
+                              categoria[0]?.Platillos?.map((platillo, platilloIndex) => (
+                                <tr key={platilloIndex}>
+                                  <td>{platillo.nombre}</td>
+                                  <td>{platillo.descripcion}</td>
+                                  <td>
+                                    <img src={platillo.foto} alt="" />
+                                  </td>
+                                  <td>{platillo.precio}</td>
+                                  <td>{platillo.promo}</td>
+                                  <td>{platillo.stock}</td>
+                                  <td>{platillo.activo ? 'Activo' : 'Inactivo'}</td>
+                                  <td>
+                                    <button
+                                      onClick={() =>
+                                        handleSubmit(platillo, categoria[0]?.nombre)
+                                      }
+                                    >
+                                      Editar
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <select className={styles.selectCambiar}
+                                      value={`${index}-${platillo.id}`}
+                                      onChange={(e) =>
+                                        cambiarCategoria(e, platillo.id, categoria[0]?.id)
+                                      }
+                                    >
+                                      {categoriasPlatillos?.map((categoriaItem, itemIndex) => (
+                                        <option
+                                          key={categoriaItem.id}
+                                          value={`${itemIndex}-${platillo.id}`}
+                                        >
+                                          {categoriaItem.nombre}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <button onClick={() => handleEliminarPlatillo(platillo)}>
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <div>
+                              <label>No tienes platillos, pero puedes crear o traer uno =) </label>
+                              <button className={styles.btnCrearPlatillo} onClick={ ()=>moverACrearPlatillo(categoria[0])}>Crear</button>
+                              </div>
+                            )}
+                          </tbody>
+                        </table>
                       )}
-                    </tbody>
-                  </table>
-                )}
+              </div>
               </div>
             ))}
+    
           </div>
       </div>
         );

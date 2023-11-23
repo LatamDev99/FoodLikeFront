@@ -76,7 +76,7 @@ const CategoriaPlatillos = () => {
                 data:item
           })}
           />
-        <label>Selecciona una categoría para crear un platillo</label>
+        <label>Selecciona una categoría  para crear un platillo</label>
         <button onClick={CrearPlatillo} disabled={!categoriaSeleccionada}>Crear Platillo</button> 
 
     </div>
