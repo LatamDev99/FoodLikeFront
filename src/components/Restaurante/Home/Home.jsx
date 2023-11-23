@@ -7,7 +7,7 @@ import Select from 'react-select'
 const Home = () => {
     const restaurante = useSelector(state => state.restaurante)
     const [loading, setLoading] = useState(true)
-
+    
     useEffect(() => {
       setTimeout(() => {
         setLoading(false)

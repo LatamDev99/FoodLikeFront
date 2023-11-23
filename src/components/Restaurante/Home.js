@@ -1,4 +1,6 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
+
+
 import Registro from "./Registro/Registro";
 import Sesion from "./Sesion/Sesion";
 import Home from "./Home/Home";
@@ -9,7 +11,10 @@ import AdministrarPlatillos from "./AdministrarPlatillos/AdministrarPlatillos";
 import EditarPlatillo from "./AdministrarPlatillos/EditarPlatillo/EditarPlatillo";
 import Footer from "./Footer/Footer";
 
+
 function HomeRestaurante() {
+
+
   return (
     <BrowserRouter>
       <div style={{  minHeight: '100vh', position: 'relative' }}>
@@ -23,10 +28,8 @@ function HomeRestaurante() {
           <Route path="/restaurante/administrarplatillos" component={AdministrarPlatillos} />
           <Route path="/restaurante/editarplatillo" component={EditarPlatillo} />
           <Route path="/restaurante" component={Home} />
-        </Switch>
-       
-        <Footer />
-
+        </Switch>      
+      <Footer/>
       </div>
     </BrowserRouter>
   );

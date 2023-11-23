@@ -90,7 +90,7 @@ const Configuracion = () => {
     }, [profileImage]);
     
     useEffect(() => {
-      subirImagenACloudinary(profileImage2, imageURL => actualizar.fachada = imageURL, setIsLoading, setImagePreview2);
+      subirImagenACloudinary(profileImage2, imageURL => actualizar.fachada = imageURL, setIsLoading2, setImagePreview2);
     }, [profileImage2]);
    
     useEffect(() => {
